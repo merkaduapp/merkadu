@@ -1,0 +1,25 @@
+{% extends "base-home.html" %}
+
+{% load i18n %}
+
+{% block head_title %}{% trans "Verify Your E-mail Address" %}{% endblock %}
+
+{% block content %}
+
+<div class="container mx-auto px-4 h-full">
+    <div class="flex content-center items-center justify-center h-full">
+      <div class="w-full lg:w-6/12 px-4">
+        <div
+          class="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded-lg bg-blueGray-200 border-0"
+        >
+        
+        <h1 class="mx-auto my-3 w-3/4 text-center">{% trans "Verify Your E-mail Address" %}</h1>
+
+        <p class="mx-auto my-3 w-3/4 text-center">Enviamos um e-mail para você para verificação. Clique no link para confirmar seu email.</p>
+
+        </div>
+      </div>
+    </div>
+</div>
+
+{% endblock %}

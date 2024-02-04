@@ -1,0 +1,55 @@
+{% extends "base-home.html" %}
+
+{% load i18n %}
+{% load account socialaccount %}
+
+{% block head_title %}{% trans "Sign In" %}{% endblock %}
+
+{% load widget_tweaks %}
+{% block content %}
+
+<div class="container mx-auto px-4 h-full">
+    <div class="flex content-center items-center justify-center h-full">
+      <div class="w-full lg:w-6/12 px-4">
+        <div
+          class="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded-lg bg-blueGray-200 border-0"
+        >
+      
+        <form class="login w-3/4 mx-auto" method="POST" action="{% url 'account_login' %}">
+          {% csrf_token %}
+          {% for field in form %}
+              <div class="relative w-full mb-3">
+                <label class="block uppercase text-blueGray-600 text-xs font-bold mb-2">
+                  {{field.label_tag}}
+                </label>
+                
+                {{field|add_class:"border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"}}
+                
+                {% for error in field.errors %}
+                  <p class="my-2 mx-auto text-xs text-red-600">{{ error }}</p>
+                {% endfor %}
+              </div>
+              
+              {% endfor %}
+          
+          {% if redirect_field_value %}
+          <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+          {% endif %}
+          <button class="my-3 bg-blueGray-800 text-red-600 active:bg-blueGray-600 text-sm font-bold uppercase px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 w-full ease-linear transition-all duration-150" type="submit">{% trans "Sign In" %}</button>
+          
+          <div class="rounded-t my-6 mb-0 px-6">
+            <div class="text-center mb-3">
+              <a class="w-full mx-auto text-center my-3 text-red-500" href="{% url 'account_reset_password' %}">{% trans "Forgot Password?" %}</a>
+              <br>
+              <a class="w-full mx-auto text-center my-3 text-red-500" href="{{ signup_url }}">Cadastre-se</a>
+            </div>
+          </div>
+        
+        </form>
+
+        </div>
+      </div>
+    </div>
+</div>
+
+{% endblock %}

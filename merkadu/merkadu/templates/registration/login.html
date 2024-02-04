@@ -1,0 +1,195 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="icon" href="{% static 'merkadu/merkadu.svg' %}" type="image/x-icon">
+    <title>Faça seu login</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-image: url('/media/media/comerciante-banner.jpg'); /* Substitua pelo URL da sua imagem de fundo */
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+    }
+    
+    .container {
+        position: relative;
+        z-index: 1;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        flex-direction: row;
+    }
+    
+    .container-logo {
+        position: relative;
+        z-index: 2;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        flex-direction: row;
+    }
+
+    .logo {
+        max-width: 100px; /* Ajuste o tamanho da logomarca conforme necessário */
+        margin: 0 auto 20px; /* Centralize a logomarca e adicione uma margem inferior */
+    }
+    
+    .form-container {
+        background-color: #fff;
+        border-radius: 8px;
+        padding: 20px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+        text-align: center;
+        z-index: 2;
+        flex: 1;
+        max-width: 400px;
+        margin: 10px;
+    }
+    
+    .form-container h2 {
+        font-size: 20px;
+        margin-bottom: 10px;
+    }
+    
+    form input {
+        width: 70%;
+        padding: 10px;
+        margin: 10px 0;
+        border: 1px solid #ccc;
+        border-radius: 3px;
+    }
+    
+    form button {
+        width: 50%;
+        padding: 10px;
+        background-color: #2c9200;
+        color: #fff;
+        border: none;
+        border-radius: 3px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+    }
+    
+    .logo {
+        background-image: url('/static/merkadu/merkadu.svg');
+        max-width: 200px; 
+        margin: 20px 0; 
+    }
+    
+    form button:hover {
+        background-color: #0056b3;
+    }
+    
+    .container-banner {
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: 0;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+    }
+    
+    .banner {
+        width: 50%;
+        height: 100%;
+        background-size: cover;
+        background-repeat: no-repeat;
+    }
+    
+    @media (max-width: 768px) {
+        .container {
+            flex-direction: column;
+            align-items: center;
+        }
+    
+        .container-logo {
+            flex-direction: column;
+        }
+    
+        .form-container {
+            max-width: 100%;
+            background-color: #fff;
+            flex-direction: column;
+        }
+    
+        .banner {
+            width: 100%;
+        }
+    
+        .container-banner {
+            flex-direction: row;
+            height: 50%;
+        }
+    
+    }
+    
+    </style>
+<body>
+    <div class="container">
+        <div class="form-container">
+            <img src="{% static 'merkadu/merkadu.svg' %}" alt="Logotipo da Empresa" class="logo">
+            <h2>Login</h2>
+            <form method="post" action="{% url 'merkadu:login' %}">
+                {% csrf_token %}
+                <!-- {{ form.as_p }} -->
+                <input type="text" name="username" placeholder="Usuário" required>
+                <input type="password" name="password" placeholder="Senha" required>
+                <button type="submit">Login</button>
+            </form>
+            <p style="font-size: smaller;">Ainda não tem uma conta? <a href="{% url 'merkadu:register' %}">Registre-se</a></p>
+        </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function () {
+        $(".login-form").submit(function (e) {
+        e.preventDefault(); // Impede o envio padrão do formulário
+
+        var form = $(this);
+        var url = "/multi-login/"; // Verifique a URL correta
+        console.log("URL >>>>>>>>", url);
+        var method = form.attr("method");
+        var data = form.serialize();
+
+        $.ajax({
+            url: url,
+            method: method,
+            data: data,
+            success: function (response) {
+                console.log("Success response:", response);
+                if (response.success) {
+                    window.location.href = response.url;
+                } else {
+                    alert("Error servidor: " + response.error);
+                }
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                console.error("Error en la solicitud AJAX:", textStatus);
+                console.error("ErrorThrown:", errorThrown);
+                console.error("jqXHR:", jqXHR);
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+{% load widget_tweaks %}
+{% block content %}
+
+<div class="flex items-center justify-between">   
+
+  <form method="POST" action="{{product.id}}" class="mx-auto w-3/4 m-4 p-10 bg-white rounded shadow-xl">
+      <p class="mt-4 my-6  text-red-500 mt-6 font-bold">Pedido</p>
+      {% csrf_token %}
+        <label class="block uppercase text-blueGray-600 text-xs font-bold mb-2 my-5">
+          CLIENTE:
+        </label>
+        <p>{{ order.client_name}}</p>
+        <p>Email: {{ order.client}}</p>
+        <p>Telefone: {{ order.client_phone}}</p>
+        <p>CPF: {{ order.client_cpf}}</p>
+        
+        <label class="block uppercase text-blueGray-600 text-xs font-bold mb-2 my-5">
+          VALOR TOTAL DO PEDIDO: 
+        </label>
+        <span>{{order.total}}</span>
+        
+        <label class="block uppercase text-blueGray-600 text-xs font-bold mb-2 my-5">
+          TAXA DO MERKADU: 
+        </label>
+        <span>R${{order.kitanda_tax}}</span>
+        
+        <h2 class="mt-4 my-6  text-red-500 mt-6 font-bold">Endereço de entrega</h2>
+        
+        <label class="block uppercase text-blueGray-600 text-xs font-bold mb-2 my-5">
+          RUA: 
+        </label>
+        <span>{{order.address_street}}</span>
+        
+        <label class="block uppercase text-blueGray-600 text-xs font-bold mb-2 my-5">
+          NÚMERO:
+        </label>
+        <span>{{order.address_number}}</span>
+        
+        <label class="block uppercase text-blueGray-600 text-xs font-bold mb-2 my-5">
+          BAIRRO:
+        </label>
+        <span>{{order.address_district}}</span>
+        <p class="mt-4 my-6  text-red-500 mt-6 font-bold">Produtos</p>
+        {% for product in order.products %}
+          <div class="flex justify-between mt-6">
+            <div class="flex">
+                <img class="h-20 w-20 object-cover rounded" src="{{ product.image.url }}" alt="">
+                <div class="mx-3">
+                    <div class="flex items-center mt-2">
+                      <h3 class="text-sm text-black-500">{{ product.name }}</h3>
+                    </div>
+                </div>
+            </div>
+            <span class="text-black-700 mx-2">Qnt: {{ product.quantity }}</span>
+          </div>
+        {% endfor %}
+        <label class="block my-6 uppercase text-blueGray-600 text-xs font-bold mb-2">
+        {% for field in form %}
+          <div class="relative w-full mb-3">
+            <p class="mt-4 my-6  text-red-500 mt-6 font-bold">{{field.label_tag}}</p>
+            {{field|add_class:"border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"}}
+            {% for error in field.errors %}
+              <p class="my-2 mx-auto text-xs text-red-600">{{ error }}</p>
+            {% endfor %}
+          </div>
+        {% endfor %}
+      <div class="mt-4">
+        <button class="px-4 py-1 text-white font-light tracking-wider bg-theme rounded" type="submit">Salvar pedido</button>
+      </div>
+  </form>
+
+</div>
+{% endblock %}

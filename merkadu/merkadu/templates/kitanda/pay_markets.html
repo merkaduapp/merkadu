@@ -1,0 +1,64 @@
+{% extends "base-home.html" %}
+{% load widget_tweaks %}
+{% block content %}
+
+
+<div class="bg-white">
+    <script type="text/javascript">
+        function payed_market(market_id){
+            event.preventDefault();
+            window.location.replace(
+                    "https://{{ request.get_host }}/pay_markets/?" 
+                    + "market=" + market_id
+            );
+        }
+    </script>
+    
+    <main class="my-8">
+        <div class="mx-auto w-3/4">
+            <div class="flex items-center justify-between">
+                <h3 class="text-2xl font-medium text-red-700">Pagar supermercados</h3>
+                <a href="https://{{ request.get_host }}/accounts/logout/">
+                    <button @click="cartOpen = !cartOpen" class="text-red-500 focus:outline-none">
+                        Sair dessa conta
+                    </button>
+                </a>
+            </div>
+
+            {% for market in markets %}
+            <hr class="my-3">
+            <div class="w-full leading-loose">
+                <form onsubmit=payed_market("{{market.id}}") class="w-full p-10 bg-white rounded shadow-xl">
+                    <p class="text-red-700 font-medium">{{ market.market_name }}</p>
+                    <p class="text-red-700 font-medium">Pedidos: {{ market.orders_numbers }}</p>
+                    <div class="flex items-center justify-center mt-4 px-3 py-2 bg-white text-red-500 text-sm uppercase font-medium rounded focus:outline-none focus:bg-red-500">
+                        <span>Recebível do supermercado: R${{ market.market_receivable }}</span>
+                    </div>
+                    <div class="flex items-center justify-center mt-4 px-3 py-2 bg-white text-red-500 text-sm uppercase font-medium rounded focus:outline-none focus:bg-red-500">
+                        <span>{{error}}</span>
+                    </div>
+                    <button class="w-full my-3 bg-theme text-white active:bg-pink-600 font-bold uppercase text-xs py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear transition-all duration-150">
+                            Pagamento de R${{ market.market_receivable }} já realizado
+                    </button>
+                </form>
+            </div>
+            <hr class="my-3">
+            {% endfor %}
+
+            {% if markets|length == 0 %}
+            <hr class="my-3">
+            <div class="w-full leading-loose">
+                <div class="w-full p-10 bg-white rounded shadow-xl">
+                  <div>
+                    <div class="flex items-center justify-center mt-4 px-3 py-2 bg-white text-red-500 text-sm uppercase font-medium rounded focus:outline-none focus:bg-red-500">
+                        <span>Nenhum recebível a ser pago a nenhum Supermercado</span>
+                    </div>
+                  </div>
+            </div>
+            <hr class="my-3">
+            {% endif %}
+        </div>
+    </main>
+</div>
+
+{% endblock %}

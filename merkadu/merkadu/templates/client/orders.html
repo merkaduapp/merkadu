@@ -1,0 +1,83 @@
+{% extends "base-home.html" %}
+{% load widget_tweaks %}
+{% block content %}
+
+<div class="bg-white">
+    <header>
+        <div class="container mx-auto px-6 py-3">
+            <div class="flex items-center justify-between">
+                <div class="flex justify-between w-full">
+                        <a href="http://{{ request.get_host }}/market/{{ market.id }}" class="text-red-500 focus:outline-none mx-4 sm:mx-0">
+                            <svg xmlns="https://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 15l-3-3m0 0l3-3m-3 3h8M3 12a9 9 0 1118 0 9 9 0 01-18 0z" />
+                            </svg>
+                        </a>
+                </div>
+                   
+                <div class="w-full text-red-600 md:text-center text-2xl font-semibold">
+                    {{ market.name }}
+                    <p class="mx-auto my-3 text-sm">{{ market.phone_number }} </p>
+                </div>
+                <div class="hidden flex items-center justify-end text-red-500 w-full md:flex md:items-center">
+                    <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" xmlns="https://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd" clip-rule="evenodd" d="M16.2721 10.2721C16.2721 12.4813 14.4813 14.2721 12.2721 14.2721C10.063 14.2721 8.27214 12.4813 8.27214 10.2721C8.27214 8.06298 10.063 6.27212 12.2721 6.27212C14.4813 6.27212 16.2721 8.06298 16.2721 10.2721ZM14.2721 10.2721C14.2721 11.3767 13.3767 12.2721 12.2721 12.2721C11.1676 12.2721 10.2721 11.3767 10.2721 10.2721C10.2721 9.16755 11.1676 8.27212 12.2721 8.27212C13.3767 8.27212 14.2721 9.16755 14.2721 10.2721Z" fill="currentColor" /><path fill-rule="evenodd" clip-rule="evenodd" d="M5.79417 16.5183C2.19424 13.0909 2.05438 7.39409 5.48178 3.79417C8.90918 0.194243 14.6059 0.054383 18.2059 3.48178C21.8058 6.90918 21.9457 12.6059 18.5183 16.2059L12.3124 22.7241L5.79417 16.5183ZM17.0698 14.8268L12.243 19.8965L7.17324 15.0698C4.3733 12.404 4.26452 7.97318 6.93028 5.17324C9.59603 2.3733 14.0268 2.26452 16.8268 4.93028C19.6267 7.59603 19.7355 12.0268 17.0698 14.8268Z" fill="currentColor" />
+                    </svg>
+                    <span class="mx-1 text-sm">{{ market.city}} - {{ market.state }}</span>
+                </div>
+            </div>
+        </div>
+    </header>
+    
+    <main class="my-8">
+        <div class="mx-auto w-2/4">
+            <div class="flex flex-col">
+                <div class="-my-2 overflow-x-auto">
+                  <div class="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
+                    <div class="flex items-center justify-center">
+                        <div class="container">
+                          <table class="w-full flex flex-row flex-no-wrap sm:bg-white rounded-lg overflow-hidden sm:shadow-lg my-5">
+                            <tbody class="flex-1 sm:flex-none mx-auto my-5">
+                              {% for order in orders %}
+                                  {% if order.status != "Finalizado" %}
+                                    <tr class="flex flex-col flex-no wrap sm:table-row mb-2 sm:mb-0">
+                                      <td class="border-grey-light border hover:bg-gray-100 p-3">Pedido feito em {{ order.created_at }}</td>
+                                      <td class="border-grey-light border hover:bg-gray-100 p-3">
+                                        <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
+                                          R$ {{ order.total }}
+                                        </span>
+                                      </td>
+                                      <td class="border-grey-light border hover:bg-gray-100 p-3">
+                                        {% if order.status == "Pendente"%}
+                                          <i class="fas fa-circle text-red-500 mr-2"></i>
+                                        {% endif %}
+                                        {% if order.status == "Em entrega"%}
+                                          <i class="fas fa-circle text-yellow-500 mr-2"></i>
+                                        {% endif %}
+                                        {% if order.status == "Finalizado"%}
+                                          <i class="fas fa-circle text-green-500 mr-2"></i>
+                                        {% endif %}
+                                        {{ order.status }}
+                                      </td>
+                                    </tr>
+                                  {% endif %}
+                              {% endfor %}
+                            </tbody>
+                          </table>
+                        </div>
+                      </div>
+                  </div>
+                </div>
+              </div>
+            <button class="w-full my-3 bg-theme text-white active:bg-pink-600 font-bold uppercase text-xs py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear transition-all duration-150">
+                <a href="http://{{ request.get_host }}/accounts/logout/">
+                <svg xmlns="https://www.w3.org/2000/svg" class="inline h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd" d="M3 3a1 1 0 00-1 1v12a1 1 0 102 0V4a1 1 0 00-1-1zm10.293 9.293a1 1 0 001.414 1.414l3-3a1 1 0 000-1.414l-3-3a1 1 0 10-1.414 1.414L14.586 9H7a1 1 0 100 2h7.586l-1.293 1.293z" clip-rule="evenodd" />
+                </svg>
+                    Sair dessa conta
+                </a>
+            </button>
+        </div>   
+    </main>
+</div>
+
+{% endblock %}

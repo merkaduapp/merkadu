@@ -1,0 +1,1092 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="manifest" href="manifest.json">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="application-name" content="PWA Merkadu">
+    <meta name="apple-mobile-web-app-title" content="PWA Merkadu">
+    <meta name="msapplication-starturl" content="/index.html">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Pricing</title>
+    <link rel="stylesheet" href="styles.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,200;0,400;0,600;1,200;1,400;1,600&display=swap"
+      rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+    <link href='https://fonts.googleapis.com/css?family=Lato' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
+    <link  rel= "apple-touch-icon"  tamanhos= "57x57"  href= "/media/favicon/apple-icon-57x57.png" > 
+    <link  rel= "apple-touch-icon"  tamanhos= "60x60"  href= "/media/favicon/apple -icon-60x60.png" > 
+    <link  rel= "apple-touch-icon"  tamanhos= "72x72"  href= "/media/favicon/apple-icon-72x72.png" > 
+    <link  rel= "apple-touch-icon"  tamanhos= "76x76"  href= "/media/favicon/apple-icon-76x76.png" > 
+    <link  rel= "apple-touch-icon"  tamanhos= "114x114"  href= "/media/favicon/apple-icon-114x114.png" > 
+    <link  rel= " apple-touch-icon"  tamanhos= "120x120"  href= "/media/favicon/apple-icon-120x120.png" > 
+    <link  rel= "apple-touch-icon"  tamanhos= "144x144"  href= "/media/favicon/apple-icon-144x144. png" > 
+    <link  rel= "apple-touch-icon"  tamanhos= "152x152"  href= "/media/favicon/apple-icon-152x152.png" > 
+    <link  rel= "apple-touch-icon"  tamanhos= "180x180"  href= "/media/favicon/apple-icon-180x180.png" > 
+    <link  rel= "icon"  type= "image/png"  tamanhos= "192x192"   href= "/media/favicon/android-icon-192x192.png" > 
+    <link  rel= "icon"  type= "imagem/png"  tamanhos= "32x32"  href= "/media/favicon/favicon-32x32.png" > 
+    <link  rel= "icon"  type= "imagem/png"  tamanhos= "96x96"  href= "/media/favicon/favicon-96x96. png" > 
+    <link  rel= "icon"  type= "image/png"  tamanhos= "16x16"  href= "/media/favicon/favicon-16x16.png" > 
+    <link  rel= "manifest"  href= "/media/manifest.json" > 
+    <meta  name= "msapplication-TileColor"  content= "#ffffff" > 
+    <meta  name= "msapplication-TileImage"  content= "/ms-icon-144x144.png" > 
+    <meta  name= "theme-color"  content= "#ffffff" >
+    <style>
+
+
+      /* Estilos gerais */
+      body {
+          font-family: Arial, sans-serif;
+          background-color: #f4f4f4;
+          align-items: center;
+      }
+
+      /* Modal */
+      .modal {
+          display: none;
+          position: fixed;
+          z-index: 1;
+          left: 0;
+          top: 0;
+          width: 100%;
+          height: 100%;
+          overflow: auto;
+          background-color: rgba(0,0,0,0.7);
+      }
+
+      .modal-content {
+          background-color: #fff;
+          margin: 10% auto;
+          padding: 20px;
+          padding-right: 20px;
+          border-radius: 5px;
+          box-shadow: 0 0 10px rgba(0,0,0,0.3);
+          max-width: 500px;
+          margin-right: auto;
+      }
+
+      .close {
+          position: absolute;
+          top: 0;
+          right: 0;
+          padding: 10px;
+          cursor: pointer;
+      }
+
+      /* Formulário */
+      form {
+          display: flex;
+          flex-direction: column;
+          margin: 0 auto;
+          padding-right: 20px;
+          padding-top: 20px;
+          max-width: 400px;
+      }
+
+      /* label {
+          font-weight: bold;
+          margin-top: 10px;
+      } */
+
+      input,
+        select,
+        label {
+            margin-bottom: 5px;
+        }
+
+        label {
+            display: block;
+        }
+
+      input[type="text"],
+      input[type="tel"],
+      input[type="email"],
+      select,
+      input[type="submit"] {
+          width: 100%;
+          padding: 10px;
+          box-sizing: border-box;
+      }
+
+      input[type="submit"] {
+            background-color: #4CAF50;
+            color: white;
+            cursor: pointer;
+      }
+
+      input[type="checkbox"] {
+          margin-left: 5px;
+      }
+
+      /* Responsividade */
+      @media screen and (max-width: 600px) {
+          .modal-content {
+              margin: 20px;
+          }
+      }
+
+
+      .instruction {
+        font-size: x-small;
+      }
+
+      .btn {
+        border: none;
+        font-family: 'Lato';
+        font-size: inherit;
+        color: inherit;
+        background: none;
+        cursor: pointer;
+        padding: 25px 80px;
+        display: inline-block;
+        margin: 15px 30px;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        font-weight: 700;
+        outline: none;
+        position: relative;
+        -webkit-transition: all 0.3s;
+        -moz-transition: all 0.3s;
+        transition: all 0.3s;
+      }
+
+      .btn:after {
+        content: '';
+        position: absolute;
+        z-index: -1;
+        -webkit-transition: all 0.3s;
+        -moz-transition: all 0.3s;
+        transition: all 0.3s;
+      }
+
+      .btn:before {
+        font-family: 'FontAwesome';
+        speak: none;
+        font-style: normal;
+        font-weight: normal;
+        font-variant: normal;
+        text-transform: none;
+        line-height: 1;
+        position: relative;
+        -webkit-font-smoothing: antialiased;
+      }
+
+
+      .btn-sep {
+          padding: 25px 60px 25px 120px;
+      }
+
+      .btn-sep:before {
+          background: rgba(0,0,0,0.15);
+      }
+
+      /* Button 1 */
+      .btn-1 {
+          background: #3498db;
+          color: #fff;
+      }
+
+      .btn-1:hover {
+          background: #2980b9;
+      }
+
+      .btn-1:active {
+          background: #2980b9;
+          top: 2px;
+      }
+
+      .btn-1:before {
+          position: absolute;
+          height: 100%;
+          left: 0;
+          top: 0;
+          line-height: 3;
+          font-size: 140%;
+          width: 60px;
+      }
+
+      .btn-2 {
+          background: #2ecc71;
+          color: #fff;
+      }
+
+      .btn-2:hover {
+          background: #27ae60;
+      }
+
+      .btn-2:active {
+          background: #27ae60;
+          top: 2px;
+      }
+
+      .btn-2:before {
+          position: absolute;
+          height: 100%;
+          left: 0;
+          top: 0;
+          line-height: 3;
+          font-size: 140%;
+          width: 60px;
+      }
+
+      .btn-3 {
+          background: #e74c3c;
+          color: #fff;
+      }
+
+      .btn-3:hover {
+      background: #c0392b;
+      }
+
+      .btn-3:active {
+          background: #c0392b;
+          top: 2px;
+      }
+
+      .btn-3:before {
+          position: absolute;
+          height: 100%;
+          left: 0;
+          top: 0;
+          line-height: 3;
+          font-size: 140%;
+          width: 60px;
+      }
+
+      .btn-4 {
+          background: #34495e;
+          color: #fff;
+      }
+
+      .btn-4:hover {
+          background: #2c3e50;
+      }
+
+      .btn-4:active {
+          background: #2c3e50;
+          top: 2px;
+      }
+
+      .btn-4:before {
+          position: absolute;
+          height: 100%;
+          left: 0;
+          top: 0;
+          line-height: 3;
+          font-size: 140%;
+          width: 60px;
+      }
+
+
+      .icon-cart:before {
+          content: "\f07a";
+      }
+
+      .icon-heart:before {
+          content: "\f55a";
+      }
+
+      .icon-info:before {
+          content: "\f05a";
+      }
+
+      .icon-send:before {
+          content: "\f1d8";
+      }
+
+ 
+      .row {
+          padding-top: 130px;
+          display: flex;
+          justify-content: space-between; 
+          align-items: center;
+          flex-wrap: wrap; 
+          text-align: center;
+      }
+
+      .card {
+          border-radius: 5px;
+          box-shadow: 7px 7px 13px 0px rgba(50, 50, 50, 0.22);
+          padding: 30px;
+          margin-bottom: 20px; 
+          width: calc(25% - 40px); 
+          transition: all 0.3s ease-out;
+          box-sizing: border-box; 
+      }
+
+      .card-r {
+          border-radius: 5px;
+          box-shadow: 7px 7px 13px 0px rgba(50, 50, 50, 0.22);
+          padding: 30px;
+          margin-bottom: 20px; 
+          width: calc(33.33% - 40px); 
+          transition: all 0.3s ease-out;
+          box-sizing: border-box; 
+      }
+
+      @media screen and (max-width: 600px) {
+          .modal-content {
+              margin: 20px;
+          }
+          .card-r {
+          border-radius: 5px;
+          box-shadow: 7px 7px 13px 0px rgba(50, 50, 50, 0.22);
+          padding: 30px;
+          margin-bottom: 20px; 
+          width: 100%; 
+          transition: all 0.3s ease-out;
+          box-sizing: border-box; 
+      }
+      }
+
+      .card-resources {
+          border-radius: 5px;
+          box-shadow: 7px 7px 13px 0px rgba(50, 50, 50, 0.22);
+          padding: 30px;
+          margin-bottom: 20px; 
+          width: calc(33.33% - 40px); 
+          transition: all 0.3s ease-out;
+          box-sizing: border-box; 
+          height: 600px;
+      }
+
+      .card-button {
+          border-radius: 5px;
+          box-shadow: 7px 7px 13px 0px rgba(50, 50, 50, 0.22);
+          margin-bottom: 20px; 
+          width: 100%; 
+          transition: all 0.3s ease-out;
+          box-sizing: border-box; 
+          height: 120px;
+          align-items:center;
+          text-align: center;
+          justify-content: center;
+      }
+
+
+      .card:hover {
+          transform: translateY(-5px);
+          cursor: pointer;    
+      }
+
+      .card p {
+          color: #a3a5ae;
+          font-size: 16px;
+      }
+      
+      .image {
+          float: right;
+          max-width: 64px;
+          max-height: 64px;
+      }
+
+      .blue {
+          border-left: 3px solid #4895ff;
+      }
+
+      .yellow {
+          border-left: 3px solid #fdc90c;
+          align-items: center;
+
+      }
+
+      .green {
+          border-left: 3px solid #3bb54a;
+          align-items: center;
+
+      }
+ 
+      .red {
+          border-left: 3px solid #b3404a;
+      }
+
+      @media (max-width: 768px) {
+          .card {
+              padding: 15px; /* Reduzir o padding em telas menores */
+              width: 100%;
+          }
+
+          .card-resources {
+            border-radius: 5px;
+            box-shadow: 7px 7px 13px 0px rgba(50, 50, 50, 0.22);
+            padding: 30px;
+            margin-bottom: 20px; /* Adicione margem inferior para o espaçamento entre os cards */
+            width: calc(33.33% - 40px); /* Define a largura para ocupar cerca de 1/3 da largura da linha */
+            transition: all 0.3s ease-out;
+            box-sizing: border-box; /* Evita que a largura ultrapasse 33.33% devido ao padding */
+            height: 1000px;
+          }
+          .instruction {
+              font-size: small; /* Reduzir o tamanho da fonte para telas menores */
+          }
+
+          .row {
+              flex-direction: column;
+              display: flex;
+              justify-content: space-between; /* Distribui os cards igualmente na linha */
+              align-items: center;
+              flex-wrap: wrap; /* Permite que os cards quebrem para a próxima linha em telas menores */
+          }
+          /* Adicione mais estilos específicos para telas menores aqui, se necessário */
+      }
+      .header {
+        background-color: #fff;
+        box-shadow: 1px 1px 4px 0 rgba(0,0,0,.1);
+        position: fixed;
+        top:0;
+        left:0;  
+        width: 100%;
+        z-index:1;
+        float:left; 
+      }
+
+      .header ul {
+        
+        margin: 0;
+        padding: 0;
+        list-style: none;
+        overflow: hidden;
+        background-color: #fff;
+      }
+
+      .header li a {
+        display: block;
+        padding: 0.7em 0.5em;
+        text-decoration: none;
+        transition:.3s;
+        border-bottom: 1px #f7f7f7 solid;
+        color:#242424;  
+      }
+      .header li a:hover,
+      .header .btn-mobile:hover {
+        background-color: #02a1ee;
+        color:#fff; 
+      }
+      .header .logo {
+        display: block;
+        float: left;
+        width: 5px;
+        height: fit-content;
+
+      }
+      .header .nav {
+        clear: both;
+        max-height: 0;
+        transition: max-height .2s ease-out;
+      }
+      /* menu icon */
+      .header .mobile-icon {
+        cursor: pointer;
+        display: inline-block;
+        float: right;
+        padding: 28px 20px;
+        position: relative;
+        user-select: none;
+      }
+      .header .mobile-icon .hamburguer {
+        background: #333;
+        display: block;
+        height: 2px;
+        position: relative;
+        transition: background .2s ease-out;
+        width: 18px;
+      }
+      .header .mobile-icon .hamburguer:before,
+      .header .mobile-icon .hamburguer:after {
+        background: #333;
+        content: '';
+        display: block;
+        height: 100%;
+        position: absolute;
+        transition: all .2s ease-out;
+        width: 100%;
+      }
+      .header .mobile-icon .hamburguer:before {
+        top: 5px;
+      }
+      .header .mobile-icon .hamburguer:after {
+        top: -5px;
+      }
+      /* menu btn */
+      .header .mobile-btn {
+        display: none;
+      }
+      .header .mobile-btn:checked ~ .nav {
+        max-height: 240px;
+      }
+      .header .mobile-btn:checked ~ .mobile-icon .hamburguer {
+        background: transparent;
+      }
+      .header .mobile-btn:checked ~ .mobile-icon .hamburguer:before {
+        transform: rotate(-45deg);
+      }
+      .header .mobile-btn:checked ~ .mobile-icon .hamburguer:after {
+        transform: rotate(45deg);
+      }
+      .header .mobile-btn:checked ~ .mobile-icon:not(.steps) .hamburguer:before,
+      .header .mobile-btn:checked ~ .mobile-icon:not(.steps) .hamburguer:after {
+        top: 0;
+      }
+      .container {
+        width:100%;
+        float:center;
+        margin-top:100px;    
+      }
+      .content { 
+        float:left; 
+        width:92%; 
+        margin:0 4%;  
+      }
+      /* 48em = 768px */
+      @media (min-width: 48em) {
+        
+        .header li { float:left; }
+        
+        .header li a {
+          
+          padding: 15px 30px;
+          margin-top: 10px;
+          border-radius: 6px;
+        
+        }
+        .header .nav {
+          clear: none;
+          float: right;
+          max-height: none;
+        }
+        .header .mobile-icon { display:none; }
+        .header li a {
+        
+          transition:.3s;
+          border-bottom:0; 
+        
+        }
+        .container-img {
+          width: 100px; 
+          height: 50px; 
+          border: 1px solid black; 
+          overflow: hidden; 
+          position: relative;
+          padding-top: 50px;
+          background-color: #000;
+          opacity: 0.2;
+        }
+      }
+
+      .container2 {
+        position: relative;
+        width: 100%;
+        height: max-content;
+        padding-top: 120px;
+        display: inline-block;
+      }
+
+      .image2 {
+        width: 100%;
+        height: 30%;
+        background-size: cover;
+        background: #000;
+        opacity: 0.2;
+        position: relative;
+        display: inline-block;
+
+      }
+
+      #conteiner2 figcaption {
+        position: absolute;
+        top: 145px;
+        right: 20px;
+        font-size: 40px;
+        color: black;
+        text-shadow: 0px 0px 5px black;
+      }
+
+      .overlay {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        height: 100%;
+        width: 100%;
+        opacity: 0;
+        transition: .5s ease;
+        background-color: #ffffff;
+      }
+
+      .container2:hover .overlay {
+        opacity: 1;
+      }
+
+
+      .container-banner {
+        width: 100%; 
+        height: auto; 
+        border: 1px solid black; 
+        overflow: hidden;
+        position: relative;
+        padding-top: 50px;
+        background-color: #000;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .container-banner img {
+        width: 100%; 
+        height: auto; 
+        /* z-index: 999; */
+        opacity: 0.2;
+        position: relative;
+      }
+
+
+      .container-banner p {
+        position: absolute;
+        font-size: 45px;
+        font-family: sans-serif;
+        text-align: center;
+        color: #ffffff;
+        font-weight: bold;
+        text-wrap: wrap;
+        width: 80%;
+        
+      }
+
+      /* 48em = 768px */
+      @media (max-width: 48em) {
+        .container-banner {
+          width: 100%; 
+          height: auto;
+          border: 1px solid black;
+          overflow: hidden;
+          position: relative;
+          padding-top: 120px;
+          background-color: #000;
+        }
+
+        .container-banner p {
+          position: absolute;
+          font-size: 15px;
+          font-family: sans-serif;
+          text-align: center;
+          color: #ffffff;
+          font-weight: bold;
+          text-wrap: wrap;
+          width: 85%;
+          /* z-index: 1001; */
+        }
+      }
+
+
+      /* Estilos para os símbolos de '+' e '-' */
+      .faq-question::before {
+        content: "+";
+        /* display: inline-block; */
+        margin-right: 10px;
+        cursor: pointer;
+        text-align: center;
+        width: 100%;
+        color: #02a1ee;
+        padding-left: 20px;
+
+      }
+      .expanded .faq-question::before {
+        content: "-";
+        color: #026a2e;
+        
+      }
+      /* Estilos para as respostas */
+      .faq-answer {
+        display: none;
+        color: #02a1ee;
+      }
+      .expanded .faq-answer {
+        display: block;
+      }
+
+      footer {
+        background-color: #000000;
+        color: #fff;
+        text-align: center;
+        padding: 20px 0;
+      }
+        
+      /* Estilize os ícones das redes sociais */
+      .social-icons a {
+        color: #fff;
+        margin: 0 10px;
+        font-size: 20px;
+        text-decoration: none;
+      }
+
+      .social-icons a:hover {
+        color: #007bff;
+      }
+
+      .payment-section {
+        background-color: #f2f2f2;
+        text-align: center;
+        padding: 20px 0;
+      }
+        
+      /* Estilize os ícones das formas de pagamento */
+      .payment-icons i {
+        font-size: 30px;
+        margin: 0 10px;
+        color: #333;
+      }
+
+
+      .green-color {
+        color:green;
+      }
+
+      .testimonials-section {
+        background-color: #f9f9f9;
+        padding: 50px 0;
+        text-align: center;
+      }
+
+      /* Estilize os depoimentos individualmente */
+      .testimonial {
+        margin-bottom: 30px;
+        padding: 20px;
+        background-color: #fff;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+      }
+
+      /* Estilize o nome e cargo do autor do depoimento */
+      .author {
+        font-weight: bold;
+      }
+
+      /* Estilize a citação do depoimento */
+      .quote {
+        font-style: italic;
+      }
+
+       
+
+       
+
+       
+        /* Estilizando o botão de fechar */
+        .close-button {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background-color: #ccc;
+            border: none;
+            color: #000;
+            padding: 5px 10px;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+
+        /* Estilizando o botão de enviar no formulário */
+        .submit-button {
+            background-color: #3498db;
+            border: none;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+
+        /* Estilizando os campos do formulário */
+        label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+        }
+
+        
+
+        
+        
+
+        /* Estilizando o botão de fechar */
+        .close-button {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background-color: #ccc;
+            border: none;
+            color: #000;
+            padding: 5px 10px;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+
+        /* Estilizando o botão de enviar no formulário */
+        .submit-button {
+            background-color: #3498db;
+            border: none;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+
+        /* Estilizando os campos do formulário */
+        label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+            font-size: 16px;
+        }
+
+        textarea {
+            resize: vertical;
+            height: 150px;
+        }
+
+</style>
+  </head>
+  <body>
+    <div id="emailModal" class="modal" style="padding-top: 100px;">
+      <div class="modal-content">
+          <span class="close" id="closeEmailModalBtnTeste">&times;</span>
+          <h2 style="color: #026a2e;">Escolha o plano desejado e comece a modernizar o seu negócio!</h2>
+          <form action="{% url 'processar_formulario' %}" method="post">
+              {% csrf_token %}
+              <input type="text" id="nome" name="nome" placeholder="Nome" required>
+              <input type="tel" id="telefone" name="telefone" placeholder="Whatsapp" required>
+              <input type="email" id="email" name="email" placeholder="E-mail" required>
+              <label><select id="opcoes" name="opcoes" required>
+                <option value="opcao1">Starter - R$ 299/mês</option>
+                <option value="opcao2">Standard - R$ 399/mês</option>
+                <option value="opcao3">Business - R$ 499/mês</option>
+              </select>Selecione o plano desejado</label>
+              <label><input type="checkbox" id="receber-emails" name="receber-emails"> Aceito receber e-mails com promoções e novidades</label>
+              <input type="submit" value="Iniciar Teste Grátis">
+          </form>
+      </div>
+    </div>
+    <div id="myModal" class="modal" style="padding-top: 80px;">
+      <div class="modal-content" style="height: 700px;">
+          <span class="close" id="closeModalBtn">&times;</span>
+          <form style="height: 600px; display: flex; margin: auto;">
+            <h2 style="color: #026a2e;">Preencha seus dados para modernizar seu negócio</h2>
+              <input type="text" id="nome" name="nome" placeholder="Nome" required>
+              <input type="tel" id="telefone" name="telefone" placeholder="Whatsapp" required>
+              <input type="email" id="email" name="email" placeholder="E-mail" required>
+              <label><select id="opcoes" name="opcoes" required>
+                  <option value="opcao1">Starter - R$ 299/mês</option>
+                  <option value="opcao2">Standard - R$ 399/mês</option>
+                  <option value="opcao3">Business - R$ 499/mês</option>
+              </select>Selecione o plano desejado</label>
+              <textarea id="mensagem" name="mensagem" rows="4" placeholder="Mensagem" required></textarea>
+              <label><input type="checkbox" id="privacyCheckbox" name="aceite" placeholder="Mensagem" required> Aceito, o <a href="/privacity-term">termo de privacidade</a></label>
+              <label><input type="checkbox" id="receber-emails" name="receber-emails"> Aceito receber e-mails com promoções e novidades</label>
+              <input type="submit" value="Enviar">
+          </form>
+      </div>
+    </div>
+    <!-- Cabeçalho -->
+    <header class="header">
+        <div class="content">
+          <a href="/" target="_blank" class="logo"><img src="media/media/merkadu.png" width="150" height="150"></a>
+          <input class="mobile-btn" type="checkbox" id="mobile-btn" />
+          <label class="mobile-icon" for="mobile-btn"><span class="hamburguer"></span></label>
+          <ul class="nav">
+            <!-- <li><a href="#" title="Home">Institucional</a></li> -->
+            <!-- <li><a href="#" title="Contato">Contato</a></li> -->
+          </ul>
+        </div><!--content-->
+    </header>
+
+    <!-- Banner 1 -->
+    <div class="container-banner">
+      <p>Você está pronto para revolucionar seu negócio?
+        Nosso Software de Ecommerce é a chave para o sucesso do seu mercado ou farmácia.
+        <br>Estamos aqui para ajudá-lo a aumentar suas vendas!</p>
+      <img src="media/media/mercado-banner.jpg"/>
+      
+    </div>    
+    <!-- Área de Cards de pricing -->
+      <div class="row">
+        <div class="card yellow">
+          <h2>TESTE GRÁTIS</h2>
+          <h1>Experimente antes de comprar!</h1>
+          <p><span>&#10003; Acesso gratuito por 30 dias</span></p>
+          <p><span>&#10003; Todos os recursos disponíveis</span></p>
+          <p><span>&#10003; Sem compromisso</span></p>
+        </div>
+          <div class="card green">
+              <h2>STARTER</h2>
+              <h1>R$ 299/mês*<br><span class="instruction">*Pago semestralmente
+                  + R$ 299,00 taxa de implantação</span></h1>
+              <p><span>&#10003; Ecommmerce completo</span></p>
+              <p><span>&#10003; Produtos ilimitados</span></p>
+              <p><span>&#10003; Gestão de estoque</span></p>
+              <p><span>&#10003; Integração com meios de pagamentos</span></p>
+              <p><span>&#10003; Integração pix</span></p>
+          </div>
+  
+        <div class="card blue">
+          <h2>STANDARD</h2>
+          <h1>R$ 399/mês*<br><span class="instruction">*Pago semestralmente
+              + R$ 399,00 taxa de implantação</span></h1>
+          <p><span>&#10003; RECURSOS STARTER + </span></p>
+          <p><span>&#10003; Integração com Whatsapp</span></p>
+          <p><span>&#10003; Inclusão no Marketplace</span></p>
+          <p><span>&#10003; Integração com meios de pagamentos</span></p>
+          <p><span>&#10003; Integração pix</span></p>
+        </div>
+        <div class="card red">
+          <h2>BUSINESS</h2>
+          <h1>R$ 499/mês*<br><span class="instruction">*Pago semestralmente</span></h1>
+          <p><span>&#10003; RECURSOS STANDARD + </span></p>
+          <p><span>&#10003; Integração com Chatbot Inteligente</span></p>
+          <p><span>&#10003; Sem taxa de Implantação</span></p>
+        </div>
+      </div>
+      <div class="card-button"><button id="openModalBtnTeste" class="btn btn-2 btn-sep icon-cart">COMEÇAR</button></div>
+
+
+    <!-- Recursos -->
+  <div class="card-resources" style="width: 100%; text-align: center; position: relative;">
+    <h1>Como funciona o Merkadu</h1>
+    <div class="row" style="padding-top: 20px;">
+        <div class="card-r red">
+          <h2>CADASTRO DE PRODUTOS</h2>
+          <p>Você cadastra seus produtos de forma ilimitada<br>Podendo gerenciar de forma inteligente o seu  estoque</p>
+        </div>
+        <div class="card-r red">
+          <h2>E-COMMERCE SÓ SEU</h2>
+          <p>Você disponibiliza para seus<br>clientes o link de sua loja virtual, tendo assim mais um canal de vendas, <b>sem taxas por vendas</b></p>
+        </div>
+        <div class="card-r red">
+          <h2>INTEGRAÇÃO COM PAGAMENTOS</h2>
+          <p>Você poderá aceitar todas as formas de pagamento,<br> e seus clientes terão a vantagem de comprar seus produtos, sem sair de casa!/p>
+        </div>
+      </div>
+    </div>
+  <div>
+  <!-- Seção de Depoimentos -->
+  <section class="testimonials-section" style="position: relative;">
+    <div class="container">
+      <h2>Depoimentos dos nossos clientes</h2>
+      <div class="testimonial">
+        <p class="quote">O seu software é incrível! Aumentou e muito os pedidos aqui no meu negócio.</p>
+        <p class="author">Deborah Vieira, Mercadinho Pontual</p>
+      </div>
+      <div class="testimonial">
+          <p class="quote">Estamos extremamente satisfeitos com os resultados que obtivemos usando o seu software.</p>
+          <p class="author">João Santos, Gerente do Mercado Lopes</p>
+      </div>
+      <div class="testimonial">
+        <p class="quote">O seu software superou as nossas expectativas e economizou muito tempo para a nossa equipe.</p>
+        <p class="author">Ana Pereira, Diretora de Operações na Simples</p>
+      </div>
+    </div>
+  </section>
+  <!-- Perguntas Frequentes -->
+  <h1 style="justify-content: center; width: 100%; text-align: center;">Perguntas Frequentes</h1>
+  <div class="faq">
+      <div class="faq-item">
+          <div class="faq-question">Como posso criar uma conta?</div>
+          <div class="faq-answer">Para criar uma conta, selecione um plano desejado, e clique em "COMEÇAR", após informar os dados solicitados, nossa equipe entrará em contato para criar sua conta.</div>
+      </div>
+      <div class="faq-item">
+          <div class="faq-question">Como faço para redefinir minha senha?</div>
+          <div class="faq-answer">Para redefinir sua senha, vá para a página de login e clique em "Esqueci minha senha". Você receberá um e-mail com instruções para redefinir sua senha.</div>
+      </div>
+      <div class="faq-item">
+          <div class="faq-question">Quais são os métodos de pagamento aceitos?</div>
+          <div class="faq-answer">Aceitamos pagamentos via cartão de crédito, PayPal e transferência bancária.</div>
+      </div>
+  </div>
+  <!-- Seção de Pagamentos -->
+  <section class="payment-section">
+    <div class="payment-icons">
+      <div>Aceitamos pagamentos:</div>
+      <i class="fab fa-cc-visa"></i>
+      <i class="fab fa-cc-mastercard"></i>
+      <i class="fab-fa-pix"></i>
+      <span class="material-icons green-color">pix </span>
+    </div>
+  </section>
+  <!-- Seçao de Redes sociais -->
+  <footer>
+    <div class="social-icons">
+        <a href="https://www.facebook.com/profile.php?id=61554651167165" target="_blank"><i class="fab fa-facebook"></i></a>
+        <a href="https://www.instagram.com/merkaduapp/" target="_blank"><i class="fab fa-instagram"></i></a>
+    </div>
+    <p>&copy; 2023 <a href="https://horsystech.com/">Horsystech</a> - CNPJ: 24.643.823/0001-01</p>
+  </footer>
+    <script>
+      // Função para abrir o modal de e-mail de teste grátis
+      document.getElementById("openModalBtnTeste").addEventListener("click", function() {
+          document.getElementById("emailModal").style.display = "block";
+      });
+
+      // Função para fechar o modal de e-mail de teste grátis
+      document.getElementById("closeEmailModalBtnTeste").addEventListener("click", function() {
+          document.getElementById("emailModal").style.display = "none";
+      });
+
+      // Fechar o modal se o fundo escuro for clicado
+      window.onclick = function(event) {
+          if (event.target == document.getElementById("emailModal")) {
+              document.getElementById("emailModal").style.display = "none";
+          }
+      };
+      // Abrir modal
+      const openModalBtn = document.getElementById('openModalBtn');
+      const modal = document.getElementById('myModal');
+      const closeModalBtn = document.getElementById('closeModalBtn');
+
+      openModalBtn.addEventListener('click', () => {
+          modal.style.display = 'block';
+      });
+
+      closeModalBtn.addEventListener('click', () => {
+          modal.style.display = 'none';
+      });
+
+      // Fechar modal quando clicar fora do formulário
+      window.addEventListener('click', (event) => {
+          if (event.target === modal) {
+              modal.style.display = 'none';
+          }
+      });
+
+      // JavaScript para expandir/recolher as respostas
+      const faqItems = document.querySelectorAll(".faq-item");
+
+      faqItems.forEach((item) => {
+          const question = item.querySelector(".faq-question");
+          const answer = item.querySelector(".faq-answer");
+
+          question.addEventListener("click", () => {
+              item.classList.toggle("expanded");
+          });
+      });
+    </script>
+  </body>
+</html>

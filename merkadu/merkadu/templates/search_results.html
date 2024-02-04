@@ -1,0 +1,28 @@
+<!-- search_results.html -->
+
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>Resultados da Pesquisa</h1>
+
+    {% if search_results %}
+        <div class="area-cards container mx-auto px-6 mt-2">
+            <div class="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 mt-6">
+                {% for product in search_results %}
+                    <div class="hover:grow hover:shadow-lg rounded-md overflow-hidden card-produto relative">
+                        <img class="object-cover h-30 w-full" src="{{ product.image.url }}" alt="{{ product.name }}">
+                        <button class="absolute top-2 right-2 text-red-500 hover:text-red-700 focus:outline-none">
+                            <i class="far fa-heart"></i>
+                        </button>
+                        <div class="p-2">
+                            <h3 class="text-lg font-semibold">{{ product.name }}</h3>
+                            <p class="text-gray-500">Preço: R$ {{ product.price }}</p>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    {% else %}
+        <p>Nenhum resultado encontrado.</p>
+    {% endif %}
+{% endblock %}

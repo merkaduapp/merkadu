@@ -1,0 +1,138 @@
+{% extends "base.html" %}
+{% load widget_tweaks %}
+{% block content %}
+  <style>
+    .thumbnail-image {
+      max-width: 100px;
+      max-height: 100px;
+    }
+  </style>
+
+  <form method="POST" action="add" class="mx-auto w-3/4 m-4 p-10 bg-white rounded shadow-xl">
+    <p class="mt-4 my-3 text-gray-800 font-medium">Adicionar produto</p>
+    {% csrf_token %}
+
+    {# Contêiner do Campo produto_catalogo e Miniatura #}
+    <div class="relative w-full mb-3 flex items-center">
+      <label class="block uppercase text-blueGray-600 text-xs font-bold mb-2">
+        {{ form.produto_catalogo.label_tag }}
+      </label>
+      {{ form.produto_catalogo }}
+      {% for error in form.produto_catalogo.errors %}
+        <p class="my-2 mx-auto text-xs text-red-600">{{ error }}</p>
+      {% endfor %}
+
+      {# Miniatura da Imagem #}
+      <img id="image-preview" src="" alt="Preview da imagem" class="thumbnail-image" />
+    </div>
+
+    {# Outros campos do formulário #}
+    {% for field in form %}
+      {% if field.name != "market" and field.name != "produto_catalogo" %}
+        <div class="relative w-full mb-3">
+          <label class="block uppercase text-blueGray-600 text-xs font-bold mb-2">
+            {{ field.label_tag }}
+          </label>
+          {{ field|add_class:"border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150" }}
+          
+          {% for error in field.errors %}
+            <p class="my-2 mx-auto text-xs text-red-600">{{ error }}</p>
+          {% endfor %}
+        </div>
+      {% endif %}
+    {% endfor %}
+    
+    <div class="mt-4">
+      <button class="px-4 py-1 text-white font-light tracking-wider bg-theme rounded" type="submit">Salvar produto</button>
+    </div>
+  </form>
+  <script>
+    const searchResultsContainer = document.getElementById('search-results');
+
+    // Função para buscar e exibir os resultados da pesquisa
+    function searchProducts(searchTerm) {
+        // Envie uma solicitação AJAX ao servidor para obter os resultados da pesquisa
+        fetch(`/sua-url-de-pesquisa/?search=${encodeURIComponent(searchTerm)}`)
+            .then(response => response.json())
+            .then(data => {
+                // Ordene os resultados alfabeticamente pelo nome
+                const sortedResults = data.sort((a, b) => a.name.localeCompare(b.name));
+
+                // Limpe o conteúdo anterior
+                searchResultsContainer.innerHTML = '';
+
+                // Adicione os resultados ordenados à lista
+                sortedResults.forEach(result => {
+                    const listItem = document.createElement('li');
+                    listItem.textContent = result.name;
+                    searchResultsContainer.appendChild(listItem);
+                });
+
+                // Exiba a lista de resultados
+                searchResultsContainer.style.display = 'block';
+            })
+            .catch(error => console.error('Erro ao buscar resultados da pesquisa:', error));
+    }
+
+    // ... (outro código anterior)
+
+</script>
+<script>
+  const searchInput = document.querySelector('#id_produto_catalogo');
+  searchInput.addEventListener('input', function() {
+      const searchTerm = this.value.trim();
+
+      // Verifique se o termo de pesquisa não está vazio
+      if (searchTerm !== '') {
+          searchProducts(searchTerm);
+      } else {
+          // Se o termo de pesquisa estiver vazio, oculte a lista de resultados
+          searchResultsContainer.style.display = 'none';
+      }
+  });
+</script>
+  <script>
+    
+    document.addEventListener("DOMContentLoaded", function () {
+      var form = document.querySelector("form");
+      var produtoCatalogoField = form.querySelector("#id_produto_catalogo");
+      var imagePreview = document.querySelector("#image-preview");
+
+      if (imagePreview) {
+        produtoCatalogoField.addEventListener("change", function () {
+          var selectedProductId = produtoCatalogoField.value;
+
+          if (selectedProductId) {
+            fetch(`/api/produto_catalogo/${selectedProductId}/`)
+              .then(response => {
+                if (!response.ok) {
+                  console.log(response);
+                  throw new Error(`Erro na solicitação: ${response.status}`);
+                }
+                return response.json();
+              })
+              .then(data => {
+                form.querySelector("#id_name").value = data.name;
+                form.querySelector("#id_descript").value = data.description;
+                form.querySelector("#id_category").value = data.category;
+
+                if (data.image) {
+                  imagePreview.src = data.image;
+                } else {
+                  imagePreview.src = "";
+                }
+              })
+              .catch(error => console.error(error));
+          } else {
+            form.querySelector("#id_name").value = "";
+            form.querySelector("#id_descript").value = "";
+            form.querySelector("#id_category").value = "";
+            imagePreview.src = "";
+          }
+        });
+      } else {
+        console.error("Elemento com ID 'image-preview' não encontrado.");
+      }
+    });
+  </script>
+{% endblock %}

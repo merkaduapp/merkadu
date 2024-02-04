@@ -1,0 +1,123 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<style>
+  html,
+  body {
+    height: 100%;
+  }
+
+  @media (min-width: 640px) {
+    table {
+      display: inline-table !important;
+    }
+
+    thead tr:not(:first-child) {
+      display: none;
+    }
+  }
+
+  td:not(:last-child) {
+    border-bottom: 0;
+  }
+
+  th:not(:last-child) {
+    border-bottom: 2px solid rgba(0, 0, 0, .1);
+  }
+</style>
+
+<div class="flex items-center justify-between">   
+    <div class="w-full overflow-x-hidden border-t flex flex-col">
+        <main class="mx-10 my-6">
+            <h1 class="text-3xl text-center text-black pb-6">Produtos</h1>
+            
+            <div class="w-full mb-6">
+              <div
+                class="flex flex-col min-w-full break-words w-full mb-6 shadow-lg rounded bg-white"
+              >
+                <div class="w-full rounded-t mb-0 py-3 border-0">
+                  <div class="flex flex-wrap items-center">
+                    <div
+                      class="relative w-full max-w-full flex-grow flex-1"
+                    >
+                      <button class="bg-theme w-full my-2 text-white active:bg-pink-600 font-bold uppercase text-xs px-3 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear transition-all duration-150">
+                          <a href="/products/add">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 inline" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
+                            </svg>
+                            Adicionar produto
+                          </a>
+                      </button>
+                      <button class="bg-theme w-full my-2 text-white active:bg-pink-600 font-bold uppercase text-xs px-3 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear transition-all duration-150">
+                          <a href="/products/import_table_products">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="inline h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M3 14h18m-9-4v8m-7 0h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" />
+                            </svg>
+                            Importar produtos
+                          </a>
+                      </button>
+                      <form action="/products" method="GET" class="form-control">
+                        <div class="relative w-full mx-auto text-gray-600">
+                            <input class="border-2 w-full border-gray-300 bg-white h-10 px-5 pr-16 rounded-lg text-sm focus:outline-none"
+                                   type="search" name="search" placeholder="Pesquisar...">
+                            <button type="submit" class="absolute right-0 top-0 mt-4 mr-4">
+                                <svg class="text-gray-600 h-4 w-4 fill-current" xmlns="http://www.w3.org/2000/svg"
+                                                    xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Capa_1" x="0px" y="0px"
+                                                    viewBox="0 0 56.966 56.966" style="enable-background:new 0 0 56.966 56.966;" xml:space="preserve"
+                                                    width="512px" height="512px">
+                                  <path d="M55.146,51.887L41.588,37.786c3.486-4.144,5.396-9.358,5.396-14.786c0-12.682-10.318-23-23-23s-23,10.318-23,23  s10.318,23,23,23c4.761,0,9.298-1.436,13.177-4.162l13.661,14.208c0.571,0.593,1.339,0.92,2.162,0.92  c0.779,0,1.518-0.297,2.079-0.837C56.255,54.982,56.293,53.08,55.146,51.887z M23.984,6c9.374,0,17,7.626,17,17s-7.626,17-17,17  s-17-7.626-17-17S14.61,6,23.984,6z"/>
+                                </svg>
+                            </button>
+                        </div>
+                    </form>
+                  </div>
+                  </div>
+                </div>
+
+                <div class="flex w-full flex-col">
+                  <div class="-my-2 w-full overflow-x-auto">
+                    <div class="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
+                      <div class="flex items-center w-full justify-center">
+                          <div class="container w-full">
+                            <table class="w-full flex flex-row flex-no-wrap sm:bg-white rounded-lg overflow-hidden sm:shadow-lg my-5">
+                              <tbody class="flex-1 sm:flex-none">
+                                {% for product in products %}
+                                <tr class="flex flex-col flex-no wrap sm:table-row mb-2 sm:mb-0">
+                                  <td class="border-grey-light border hover:bg-gray-100 p-3">{{ product.name }}</td>
+                                  <td class="border-grey-light border hover:bg-gray-100 p-3 truncate">
+                                    <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
+                                      R${{ product.value }}
+                                    </span>
+                                  </td>
+                                  <td class="border-grey-light border hover:bg-gray-100 p-3 truncate">
+                                    <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
+                                      {{ product.quantity_in_stock }} unidades
+                                    </span>
+                                  </td>
+                                  <td class="border-grey-light border hover:bg-gray-100 p-3 text-red-400 hover:text-red-600 hover:font-medium cursor-pointer">
+                                    <a href="/products/edit/{{product.id}}">
+                                      <button class="bg-theme text-white active:bg-pink-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear transition-all duration-150">
+                                        Editar
+                                      </button>
+                                    </a>
+                                  </td>
+                                </tr>
+                                {% endfor %}
+                              </tbody>
+                            </table>
+                          </div>
+                        </div>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+            
+        </main>
+    </div>
+</div>
+
+
+{% endblock %}

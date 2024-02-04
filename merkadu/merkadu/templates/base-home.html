@@ -1,0 +1,203 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{market.name}}</title>
+    <!-- ChartJS -->
+    <script src="{% static 'merkadu/js/chart.js' %}"></script>
+    <!-- AlpineJS -->
+    <script src="{% static 'merkadu/js/alpine.js' %}" defer></script>
+    <!-- Tailwind -->
+    <link href="{% static 'merkadu/css/tailwind.css' %}" rel="stylesheet">
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Nunito:400,700,800" rel="stylesheet">
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link  rel= "apple-touch-icon"  tamanhos= "57x57"  href= "/media/favicon/apple-icon-57x57.png" > 
+    <link  rel= "apple-touch-icon"  tamanhos= "60x60"  href= "/media/favicon/apple -icon-60x60.png" > 
+    <link  rel= "apple-touch-icon"  tamanhos= "72x72"  href= "/media/favicon/apple-icon-72x72.png" > 
+    <link  rel= "apple-touch-icon"  tamanhos= "76x76"  href= "/media/favicon/apple-icon-76x76.png" > 
+    <link  rel= "apple-touch-icon"  tamanhos= "114x114"  href= "/media/favicon/apple-icon-114x114.png" > 
+    <link  rel= " apple-touch-icon"  tamanhos= "120x120"  href= "/media/favicon/apple-icon-120x120.png" > 
+    <link  rel= "apple-touch-icon"  tamanhos= "144x144"  href= "/media/favicon/apple-icon-144x144. png" > 
+    <link  rel= "apple-touch-icon"  tamanhos= "152x152"  href= "/media/favicon/apple-icon-152x152.png" > 
+    <link  rel= "apple-touch-icon"  tamanhos= "180x180"  href= "/media/favicon/apple-icon-180x180.png" > 
+    <link  rel= "icon"  type= "image/png"  tamanhos= "192x192"   href= "/media/favicon/android-icon-192x192.png" > 
+    <link  rel= "icon"  type= "imagem/png"  tamanhos= "32x32"  href= "/media/favicon/favicon-32x32.png" > 
+    <link  rel= "icon"  type= "imagem/png"  tamanhos= "96x96"  href= "/media/favicon/favicon-96x96. png" > 
+    <link  rel= "icon"  type= "image/png"  tamanhos= "16x16"  href= "/media/favicon/favicon-16x16.png" > 
+    <link  rel= "manifest"  href= "/media/manifest.json" > 
+    <meta  name= "msapplication-TileColor"  content= "#ffffff" > 
+    <meta  name= "msapplication-TileImage"  content= "/ms-icon-144x144.png" > 
+    <meta  name= "theme-color"  content= "#ffffff" >
+    <style>
+
+        /* Adicione isso no seu arquivo CSS */
+        .area-cards {
+            padding-top: 180px;
+            padding-bottom: 100px;
+
+        }
+
+        .img-logo {
+            max-width: 35%;
+            max-height: 35%;
+            position: relative;
+            text-align: center;    /* Alinhamento do texto */
+
+        }
+
+        .rodape {
+            background-color: rgb(255, 157, 29); /* Cor de fundo do rodapé */
+            color: #fff;           /* Cor do texto */
+            text-align: center;    /* Alinhamento do texto */
+            padding: 20px 0;       /* Espaçamento interno */
+            font-size: 0.9em;      /* Tamanho da fonte */
+            position: relative;
+        }
+
+        .rodape .container {
+            width: 80%;
+            margin: 0 auto; /* Centraliza o conteúdo do rodapé */
+        }
+
+        body {
+            background-color: rgb(255, 255, 255);
+        }
+
+        .oculto {
+            display: none;
+        }
+        .card-produto {
+            background-color: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            overflow: hidden;
+            transition: box-shadow 0.3s ease;
+        }
+
+        .card-produto:hover {
+            box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+        }
+
+        .card-produto img {
+            width: 100%;
+            object-fit: cover; /* Garante que a imagem cubra toda a área designada */
+        }
+
+        .card-conteudo {
+            padding: 15px;
+            text-align: center;
+        }
+
+        .card-conteudo h3 {
+            margin-bottom: 10px;
+            font-size: 1.1em;
+            font-weight: bold;
+        }
+
+        .card-conteudo span {
+            display: block;
+            margin-top: 10px;
+            color: #E53E3E; /* Cor vermelha para o preço */
+        }
+
+        /* Exemplo de botão estilizado */
+        .botao-estilizado {
+            background-color: #3182CE;
+            color: white;
+            padding: 8px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .botao-estilizado:hover {
+            background-color: #63B3ED;
+        }
+
+        .sticky-header {
+            position: fixed;
+            top: 0;
+            z-index: 1000;
+            color: #fff;
+            background-color: rgb(255, 255, 255); 
+            box-shadow: 0 2px 2px -1px rgba(0, 0, 0, 0.4); /* Somente se desejar uma sombra */
+            width: 100%;
+            height: 30%;
+        }
+
+        .cart-menu {
+            position: fixed; /* ou 'absolute', dependendo do layout */
+            /* ... outros estilos ... */
+            z-index: 1001; /* Deve ser maior que o z-index do cabeçalho */
+        }
+
+        .bg-theme{
+            background-color: #FA0F0F;
+        }
+        .nunito {
+            font-family: 'nunito', font-sans;
+        }
+        
+        .border-b-1 {
+            border-bottom-width: 1px;
+        }
+        
+        .border-l-1 {
+            border-left-width: 1px;
+        }
+        
+        hover\:border-none:hover {
+            border-style: none;
+        }
+        
+        #sidebar {
+            transition: ease-in-out all .3s;
+            z-index: 9999;
+        }
+        
+        #sidebar span {
+            opacity: 0;
+            position: absolute;
+            transition: ease-in-out all .1s;
+        }
+        
+        #sidebar:hover {
+            width: 150px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            /*shadow-2xl*/
+        }
+        
+        #sidebar:hover span {
+            opacity: 1;
+        }
+    </style>
+</head>
+<body>
+<!-- Side bar-->
+<nav class="flex items-center justify-between flex-wrap bg-teal p-6">
+    <div class="flex mx-auto items-center">
+        <!-- <a href="/">
+            <svg width="200" height="30" viewBox="0 0 586 73" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M27.7031 46.7812L19.3594 54.6094L16.3125 72H0.28125L12.0938 3.75H28.1719L23.0625 32.9531L29.7188 24.8438L47.4375 3.75H68.25L39.9375 34.6406L55.6406 72H37.3125L27.7031 46.7812ZM75.9375 72H60.4688L69.2812 21.2812H84.75L75.9375 72ZM70.6406 8.48438C70.5781 6.20312 71.375 4.29688 73.0312 2.76562C74.7188 1.23437 76.75 0.46875 79.125 0.46875C81.5312 0.46875 83.5312 1.15625 85.125 2.53125C86.75 3.90625 87.5938 5.70313 87.6562 7.92188C87.7188 10.2344 86.9219 12.1562 85.2656 13.6875C83.6094 15.1875 81.5781 15.9375 79.1719 15.9375C76.8281 15.9375 74.8281 15.2656 73.1719 13.9219C71.5469 12.5469 70.7031 10.7344 70.6406 8.48438ZM114.656 8.67188L112.453 21.2812H120.562L118.641 32.25H110.531L106.594 55.5469C106.375 57.1406 106.469 58.3438 106.875 59.1562C107.312 59.9688 108.375 60.4062 110.062 60.4688C110.719 60.5 112.062 60.4219 114.094 60.2344L112.969 71.6719C110.375 72.5156 107.609 72.9062 104.672 72.8438C99.8906 72.7812 96.3125 71.375 93.9375 68.625C91.5625 65.875 90.5938 62.1406 91.0312 57.4219L95.1562 32.25H88.875L90.75 21.2812H97.0312L99.2344 8.67188H114.656ZM146.766 72C146.328 70.7812 146.109 69.25 146.109 67.4062C142.641 71.2188 138.5 73.0625 133.688 72.9375C129.281 72.875 125.625 71.4062 122.719 68.5312C119.812 65.6562 118.453 62.1719 118.641 58.0781C118.797 52.5781 121.094 48.3594 125.531 45.4219C129.969 42.4531 136.031 40.9688 143.719 40.9688L148.875 41.0625L149.438 38.2031L149.625 35.7188C149.5 32.875 148.078 31.4062 145.359 31.3125C141.984 31.25 139.906 33.1094 139.125 36.8906L123.656 36.9375C123.812 33.5312 124.922 30.5781 126.984 28.0781C129.047 25.5469 131.844 23.6094 135.375 22.2656C138.938 20.8906 142.719 20.25 146.719 20.3438C150.562 20.4375 153.922 21.25 156.797 22.7812C159.703 24.2812 161.875 26.3906 163.312 29.1094C164.75 31.7969 165.297 34.9062 164.953 38.4375L161.156 62.2969L160.922 65.2031C160.797 67.5156 161.094 69.4844 161.812 71.1094L161.766 72H146.766ZM137.953 61.7812C141.109 61.9062 143.875 60.5156 146.25 57.6094L147.797 49.4531L143.812 49.4062C141.344 49.4688 139.219 50.2031 137.438 51.6094C135.656 52.9844 134.609 54.875 134.297 57.2812C134.141 58.5625 134.375 59.625 135 60.4688C135.656 61.2812 136.641 61.7188 137.953 61.7812ZM190.922 21.2344L189.844 27.3281C193.906 22.5156 198.797 20.1719 204.516 20.2969C209.203 20.3906 212.688 22.1406 214.969 25.5469C217.281 28.9219 218.125 33.7656 217.5 40.0781L212.156 72H196.688L202.078 39.9844C202.203 38.8906 202.234 37.8906 202.172 36.9844C201.953 34.0156 200.203 32.5312 196.922 32.5312C194.203 32.4688 191.719 33.6719 189.469 36.1406L183.141 72H167.719L176.531 21.2812L190.922 21.2344ZM223.547 46.5469C224.516 38.5469 226.953 32.1406 230.859 27.3281C234.766 22.5156 239.859 20.1875 246.141 20.3438C250.453 20.4688 254.031 22.2812 256.875 25.7812L261.797 0H277.266L264.797 72H251.062L251.719 66.5156C247.938 70.9531 243.734 73.1094 239.109 72.9844C234.234 72.9219 230.406 71.125 227.625 67.5938C224.875 64.0312 223.406 59.2656 223.219 53.2969C223.156 51.3281 223.219 49.4062 223.406 47.5312L223.547 46.5469ZM238.922 47.5781C238.672 49.5781 238.562 51.3281 238.594 52.8281C238.594 58.0156 240.344 60.6562 243.844 60.75C246.875 60.8438 249.578 59.3906 251.953 56.3906L255.422 36.9375C254.391 34.0625 252.328 32.5781 249.234 32.4844C246.359 32.4219 244.031 33.6719 242.25 36.2344C240.5 38.7656 239.391 42.5469 238.922 47.5781ZM302.484 72C302.047 70.7812 301.828 69.25 301.828 67.4062C298.359 71.2188 294.219 73.0625 289.406 72.9375C285 72.875 281.344 71.4062 278.438 68.5312C275.531 65.6562 274.172 62.1719 274.359 58.0781C274.516 52.5781 276.812 48.3594 281.25 45.4219C285.688 42.4531 291.75 40.9688 299.438 40.9688L304.594 41.0625L305.156 38.2031L305.344 35.7188C305.219 32.875 303.797 31.4062 301.078 31.3125C297.703 31.25 295.625 33.1094 294.844 36.8906L279.375 36.9375C279.531 33.5312 280.641 30.5781 282.703 28.0781C284.766 25.5469 287.562 23.6094 291.094 22.2656C294.656 20.8906 298.438 20.25 302.438 20.3438C306.281 20.4375 309.641 21.25 312.516 22.7812C315.422 24.2812 317.594 26.3906 319.031 29.1094C320.469 31.7969 321.016 34.9062 320.672 38.4375L316.875 62.2969L316.641 65.2031C316.516 67.5156 316.812 69.4844 317.531 71.1094L317.484 72H302.484ZM293.672 61.7812C296.828 61.9062 299.594 60.5156 301.969 57.6094L303.516 49.4531L299.531 49.4062C297.062 49.4688 294.938 50.2031 293.156 51.6094C291.375 52.9844 290.328 54.875 290.016 57.2812C289.859 58.5625 290.094 59.625 290.719 60.4688C291.375 61.2812 292.359 61.7188 293.672 61.7812Z" fill="#FA0F0F"/>
+                <path d="M331.266 69.7031C331.266 68.9844 331.516 68.375 332.016 67.875C332.516 67.3438 333.125 67.0781 333.844 67.0781C334.562 67.0781 335.172 67.3438 335.672 67.875C336.203 68.375 336.469 68.9844 336.469 69.7031C336.469 70.4219 336.203 71.0312 335.672 71.5312C335.172 72.0312 334.562 72.2812 333.844 72.2812C333.125 72.2812 332.516 72.0312 332.016 71.5312C331.516 71.0312 331.266 70.4219 331.266 69.7031ZM395.25 55.6406C395.25 52.7344 394.562 50.2812 393.188 48.2812C391.844 46.25 389.703 44.4688 386.766 42.9375C383.859 41.375 379.453 39.7812 373.547 38.1562C367.641 36.5312 363.203 34.8906 360.234 33.2344C357.297 31.5781 355.141 29.6562 353.766 27.4688C352.391 25.2812 351.703 22.625 351.703 19.5C351.703 14.5312 353.797 10.5156 357.984 7.45312C362.172 4.35938 367.625 2.8125 374.344 2.8125C378.719 2.8125 382.641 3.67187 386.109 5.39062C389.609 7.07812 392.312 9.46875 394.219 12.5625C396.125 15.625 397.078 19.0938 397.078 22.9688H394.547C394.547 17.875 392.672 13.6719 388.922 10.3594C385.172 7.01563 380.312 5.34375 374.344 5.34375C368.344 5.34375 363.484 6.6875 359.766 9.375C356.078 12.0313 354.234 15.375 354.234 19.4062C354.234 23.5 355.844 26.7969 359.062 29.2969C362.281 31.7969 367.594 34.0156 375 35.9531C382.406 37.8594 387.828 40.0781 391.266 42.6094C395.641 45.8281 397.828 50.1406 397.828 55.5469C397.828 58.9844 396.859 62.0312 394.922 64.6875C392.984 67.3125 390.234 69.3438 386.672 70.7812C383.109 72.2188 379.109 72.9375 374.672 72.9375C369.734 72.9375 365.297 72.125 361.359 70.5C357.422 68.8438 354.453 66.5 352.453 63.4688C350.484 60.4375 349.5 56.8594 349.5 52.7344H352.031C352.031 58.3281 354.125 62.6719 358.312 65.7656C362.5 68.8594 367.953 70.4062 374.672 70.4062C380.641 70.4062 385.562 69.0469 389.438 66.3281C393.312 63.5781 395.25 60.0156 395.25 55.6406ZM459.844 72H457.312V38.1562H413.719V72H411.188V3.75H413.719V35.625H457.312V3.75H459.844V72ZM526.922 42.9844C526.922 48.8906 525.859 54.125 523.734 58.6875C521.641 63.2188 518.641 66.7344 514.734 69.2344C510.828 71.7031 506.328 72.9375 501.234 72.9375C493.547 72.9375 487.328 70.2031 482.578 64.7344C477.828 59.2656 475.453 51.8906 475.453 42.6094V32.7656C475.453 26.8906 476.5 21.6719 478.594 17.1094C480.719 12.5469 483.734 9.03125 487.641 6.5625C491.578 4.0625 496.078 2.8125 501.141 2.8125C506.234 2.8125 510.734 4.0625 514.641 6.5625C518.578 9.03125 521.609 12.5625 523.734 17.1562C525.859 21.7188 526.922 26.9219 526.922 32.7656V42.9844ZM524.391 32.6719C524.391 24.4219 522.297 17.8125 518.109 12.8438C513.922 7.84375 508.266 5.34375 501.141 5.34375C494.109 5.34375 488.5 7.82812 484.312 12.7969C480.125 17.7344 478.031 24.4688 478.031 33V42.9844C478.031 48.4219 478.969 53.2344 480.844 57.4219C482.75 61.5781 485.453 64.7812 488.953 67.0312C492.453 69.2812 496.547 70.4062 501.234 70.4062C508.359 70.4062 514 67.9219 518.156 62.9531C522.312 57.9844 524.391 51.2031 524.391 42.6094V32.6719ZM545.062 43.1719V72H542.531V3.75H563.859C570.828 3.75 576.234 5.51563 580.078 9.04688C583.953 12.5469 585.891 17.4219 585.891 23.6719C585.891 29.8594 584 34.6406 580.219 38.0156C576.469 41.3906 571.125 43.1094 564.188 43.1719H545.062ZM545.062 40.6406H563.859C570.016 40.6406 574.797 39.1562 578.203 36.1875C581.641 33.2188 583.359 29.0781 583.359 23.7656C583.359 18.2656 581.641 13.9844 578.203 10.9219C574.797 7.82812 570.016 6.28125 563.859 6.28125H545.062V40.6406Z" fill="black"/>
+            </svg>
+        </a> -->
+    </div>
+</nav>
+<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+<a href="https://wa.me/55{{market.phone_number}}?text=Olá, vim do seu e-commerce, gostaria de tirar uma dúvida!" style="position:fixed;width:60px;height:60px;bottom:40px;right:40px;background-color:#25d366;color:#FFF;border-radius:50px;text-align:center;font-size:30px;box-shadow: 1px 1px 2px #888;
+  z-index:1000;" target="_blank">
+<i style="margin-top:16px" class="fa fa-whatsapp"></i>
+</a> -->
+<div id="content">
+    {% block content %}{% endblock %}
+</div>  
+
+</body>
+</html>

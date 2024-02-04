@@ -1,0 +1,99 @@
+{% extends "base-home.html" %}
+{% load widget_tweaks %}
+{% block content %}
+{% load static %}
+<style>
+
+
+.container-logo {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  flex-direction: row;
+}
+
+.logo {
+  max-width: 200px; /* Ajuste o tamanho da logomarca conforme necessário */
+  margin: 0 auto 20px; /* Centralize a logomarca e adicione uma margem inferior */
+}
+</style>
+
+<div class="container mx-auto px-4 h-full">
+    <div class="flex content-center items-center justify-center h-full;">
+      <div class="w-full lg:w-6/12 px-4">
+        <div
+          class="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded-lg bg-blueGray-200 border-0"
+        >
+          <div class="rounded-t mb-0 px-6 py-6">
+            <div class="text-center mb-3">
+              <img src="{% static 'merkadu/merkadu.svg' %}" alt="Logotipo da Empresa" class="logo">
+              <h6 class="text-blueGray-500 text-sm font-bold">
+                Faça seu registro
+              </h6>
+            </div>
+          </div>
+          <div class="flex-auto px-4 lg:px-10 py-10 pt-0">
+            <form method="POST" action="{% url 'merkadu:register' %}">
+              {% csrf_token %}
+              {% for field in form %}
+              <div class="relative w-full mb-3">
+                <label class="block uppercase text-blueGray-600 text-xs font-bold mb-2">
+                  {{field.label_tag}}
+                </label>
+                
+                {{field|add_class:"border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"}}
+                
+                {% for error in field.errors %}
+                  <p class="my-2 mx-auto text-xs text-red-600">{{ error }}</p>
+                {% endfor %}
+              </div>
+              
+              {% endfor %}
+              
+              <div>
+                <label class="inline-flex items-center cursor-pointer">
+                  <span
+                    class="ml-2 mx-auto my-6 text-sm font-semibold text-blueGray-600"
+                  >
+                    Ao me registrar concordo com as políticas do site
+                    <a href="/termos" class="text-red-500">
+                      Termos e compromissos
+                    </a>
+                  </span>
+                </label>
+              </div>
+
+              <div class="text-center mt-6">
+                <button
+                  class="bg-blueGray-800 text-red-600 active:bg-blueGray-600 text-sm font-bold uppercase px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 w-full ease-linear transition-all duration-150"
+                  type="submit"
+                >
+                  Criar conta
+                </button>
+              </div>
+
+              <div class="text-center mt-6">
+                <span class="my-10 mx-auto">ou</span>
+              </div>
+              
+              <div class="text-center mt-6">
+                <a href="/accounts/login">
+                  <button
+                    class="bg-blueGray-800 text-red-600 active:bg-blueGray-600 text-sm font-bold uppercase px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 w-full ease-linear transition-all duration-150"
+                  >
+                    Fazer Login
+                  </button>
+                </a>
+              </div>
+
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+</div>
+
+{% endblock %}

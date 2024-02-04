@@ -1,0 +1,394 @@
+{% extends "base-home.html" %}
+{% load widget_tweaks %}
+{% block content %}
+
+<div x-data="{ cartOpen: true }" class="bg-white" style="background-color: rgb(253, 253, 253);">
+    <style>
+        footer.rodape {
+            background-color: rgb(6, 67, 111);
+            color: aliceblue;
+    /* Estilização do footer */
+    }
+
+    nav {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+
+        nav a {
+            color: rgb(0, 0, 0);
+            text-decoration: none;
+        }
+
+        .login-button {
+            background-color: rgb(68, 134, 255);
+            padding: 10px 20px;
+            border-radius: 5px;
+        }
+
+        .login-button a {
+            color: white;
+            text-decoration: none;
+        }
+
+        .user-greeting {
+          color: rgb(0, 0, 0);
+          text-decoration: none;
+          margin-right: 20px;
+        }
+    
+    .footer-btn {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-decoration: none;
+        color: #333;
+        font-size: 12px;
+    }
+    
+    header.sticky-header {
+            position: sticky;
+            top: 0;
+            background-color: rgb(0, 67, 114);
+            width: 100%;
+            z-index: 1000;
+    }
+
+    .footer-btn i {
+        margin-bottom: 5px;
+        font-size: 18px;
+    }
+
+    .container {
+            max-width: 100%;
+            padding-right: 0;
+            padding-left: 0;
+            margin-right: auto;
+            margin-left: auto;
+        }
+    .rodape {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 100px;
+        z-index: 1000; /* Ajuste conforme necessário */
+    }
+
+   
+    @media (max-width: 767px) {
+        .area-cards {
+            grid-template-columns: repeat(5, minmax(0, 5fr));
+            font-size: 10px; /* Ajuste o tamanho da fonte conforme necessário */
+
+        }
+
+        .card-conteudo {
+            font-size: 14px;
+            text-align: center;
+            
+
+        }
+
+        .area-cards .grid-cols-1 {
+            grid-template-columns: repeat(3, minmax(0, 3fr));
+        }
+
+        .container {
+            font-size: 12px;
+        }
+
+        .img-logo {
+            max-width: 100%; /* Isso garante que a imagem não ultrapasse a largura do contêiner pai */
+            height: auto; /* Isso mantém a proporção da imagem */
+    }
+    }
+
+    @media (min-width: 768px) {
+        .area-cards {
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+
+        .area-cards .grid-cols-1 {
+            grid-template-columns: repeat(1, minmax(0, 1fr));
+        }
+    }
+
+    @media (min-width: 992px) {
+        .area-cards .grid-cols-1 {
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+    }
+
+    @media (min-width: 1200px) {
+        .area-cards .grid-cols-1 {
+            grid-template-columns: repeat(5, minmax(0, 1fr));
+        }
+    }
+    </style>
+    <header class="sticky-header" style="background-color: rgb(0, 67, 114);">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+        <div class="container mx-auto px-6 py-3">
+            <!-- Header com nome do mercado e dados -->
+            <div class="flex items-center justify-between px-4 py-2" style="background-color: white; width: 100vw;">
+                <!-- Seção do Logotipo -->
+                <div class="flex items-center">
+                    <img class="img-logo" src="{{ market.logotipo.url}}" alt="Logotipo" width="300" height="auto">
+                </div>
+                <!-- Seção de Controle do Usuário -->
+                <div class="flex items-center">
+                    {% if user.is_authenticated %}   
+                        <div class="nav-item">
+                            <a href="/configurations">Configurações</a>
+                        </div> 
+                        <div class="user-greeting">
+                            <a>Olá, <b>{{ user_greeting }}!</b></a>
+                        </div> 
+                        <div class="nav-item">
+                            <a href="{% url 'merkadu:logout' %}?next=/" style="color: black;">Sair</a>
+                        </div>
+                    {% else %}
+                        <div class="login-button">
+                            <a href="/login/?next={{ request.path }}" style="color: white; text-decoration: none;">Login</a>
+                        </div>
+                    {% endif %}
+                    <button @click="cartOpen = !cartOpen" class="relative text-red-600 focus:outline-none">
+                        <svg class="h-11 w-11" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 30 30">
+                            <path d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"></path>
+                        </svg>
+                        <span class="absolute top-0 right-0 inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none text-red-100 bg-red-600 rounded-full">
+                            {{ cart|length }}
+                        </span>
+                    </button>
+                </div>
+            </div>
+            <!-- Campo de pesquisa de produtos -->
+            <form class="relative mt-6 max-w-lg mx-auto" action="{% url 'merkadu:search_products_market' market_id=market.id %}" method="get">
+                <input class="border-2 w-full border-gray-300 bg-white h-10 px-5 pr-16 rounded-lg text-sm focus:outline-none"
+                    type="search" name="search" placeholder="Pesquisar...">
+                <button type="submit" class="absolute right-0 top-0 mt-4 mr-4">
+                    <svg class="text-gray-600 h-4 w-4 fill-current" xmlns="https://www.w3.org/2000/svg"
+                        xmlns:xlink="https://www.w3.org/1999/xlink" version="1.1" id="Capa_1" x="0px" y="0px"
+                        viewBox="0 0 56.966 56.966" style="enable-background:new 0 0 56.966 56.966;" xml:space="preserve"
+                        width="600px" height="600px">
+                        <path d="M55.146,51.887L41.588,37.786c3.486-4.144,5.396-9.358,5.396-14.786c0-12.682-10.318-23-23-23s-23,10.318-23,23  s10.318,23,23,23c4.761,0,9.298-1.436,13.177-4.162l13.661,14.208c0.571,0.593,1.339,0.92,2.162,0.92  c0.779,0,1.518-0.297,2.079-0.837C56.255,54.982,56.293,53.08,55.146,51.887z M23.984,6c9.374,0,17,7.626,17,17s-7.626,17-17,17  s-17-7.626-17-17S14.61,6,23.984,6z"/>
+                    </svg>
+                </button>
+                <input type="hidden" name="market_id" value="{{ market.id }}">
+            </form>
+            <!-- Seção de Informações -->
+            <div class="flex-grow text-center">
+                <p class="text-sm text-red-600 justify-between" style="font-size: 12px; color: rgb(255, 255, 255);">
+                    <i class="fas fa-money-bill-wave"></i> Pedido mínimo: R${{ market.min_order_value }} **
+                    <i class="fas fa-truck"></i> Taxa de entrega: R${{ market.delivery_fee }} **
+                    <i class="fas fa-clock"></i> Tempo de entrega: {{ market.delivery_time }}hs
+                </p>
+            </div>
+        </div>
+    </header>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // Selecione o elemento do seu dropdown
+            var categoryDropdown = document.getElementById('category');
+    
+            // Adicione um ouvinte de alteração ao dropdown
+            categoryDropdown.addEventListener('change', function () {
+                // Armazene a seleção no localStorage
+                localStorage.setItem('selectedCategory', categoryDropdown.value);
+            });
+    
+            // Verifique se há uma seleção armazenada e defina-a no dropdown
+            var storedCategory = localStorage.getItem('selectedCategory');
+            if (storedCategory) {
+                categoryDropdown.value = storedCategory;
+            }
+        });
+    </script>
+    <script>
+        // document.addEventListener('DOMContentLoaded', function () {
+        const btnFinalizarCompra = document.getElementById('btnFinalizarCompra');
+        const modalLogin = document.getElementById('modalLogin');
+        const btnFecharModal = document.getElementById('btnFecharModal');
+        const currentURL = window.location.href;
+
+        if (btnFinalizarCompra && modalLogin && btnFecharModal) {
+            btnFinalizarCompra.addEventListener('click', function (event) {
+                event.preventDefault();
+                modalLogin.style.display = 'block';
+            });
+
+            btnFecharModal.addEventListener('click', function () {
+                modalLogin.style.display = 'none';
+            });
+
+            window.addEventListener('click', function (event) {
+                if (event.target === modalLogin) {
+                    modalLogin.style.display = 'none';
+                }
+            });
+        } else {
+            console.error('Um ou mais elementos não foram encontrados.');
+        }
+
+        // Adicione o código de redirecionamento após o login
+        const loginForm = document.getElementById('seuFormularioDeLogin');
+        if (loginForm) {
+            loginForm.addEventListener('submit', function (event) {
+                event.preventDefault();
+
+                // Adicione lógica de autenticação aqui
+
+                // Após o login, redireciona de volta para a URL original
+                window.location.href = currentURL;
+            });
+        }
+// });
+    </script>
+    
+    <div :class="cartOpen ? 'translate-x-0 ease-out' : 'translate-x-full ease-in'" class="cart-menu fixed right-0 top-0 max-w-xs w-full h-full px-6 py-4 transition duration-300 transform overflow-y-auto bg-white border-l-2 border-gray-400 z-index: 1001">
+        <div class="flex items-center justify-between z-index: 1001">
+            <h3 class="text-2xl font-medium text-red-700">Carrinho</h3>
+            <a href="{% url 'merkadu:market' pk=market.id %}?empty_cart=true" class="text-gray-500 text-sm">Esvaziar Carrinho</a>
+            <button @click="cartOpen = !cartOpen" class="text-red-500 focus:outline-none">
+                    <svg class="h-5 w-5" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="3" viewBox="0 0 24 24" stroke="currentColor"><path d="M6 18L18 6M6 6l12 12"></path></svg>
+                </button>
+        </div>
+        <hr class="my-3">
+        <!-- Carrinho  -->
+        {% for product in cart.values %}
+            <div class="flex justify-between mt-6">
+                <div class="flex">
+                    <img class="h-20 w-20 object-cover rounded" src="{{ product.image }}" alt="">
+                    <div class="mx-3">
+                        <h3 class="text-sm text-red-500">{{ product.name }}</h3>
+                        <div class="flex items-right mt-2">
+                            <a href="{{ market.id }}?remove_product={{product.id}}" onclick="event.stopPropagation();">
+                                <button class="text-red-500 focus:outline-none focus:text-red-500">
+                                    <svg class="h-5 w-5" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor"><path d="M15 12H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                                </button>
+                            </a>
+                            <span class="text-red-700 mx-2">{{ product.quantity }}</span>
+                            <a href="{{ market.id }}?add_product={{product.id}}" onclick="event.stopPropagation();">
+                                <button class="text-red-500 focus:outline-none focus:text-red-500">
+                                    <svg class="h-5 w-5" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor"><path d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                                </button>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <span class="text-red-500 text-xs whitespace-nowrap">R$ {{ product.sub_total|floatformat:"-2" }}</span>
+
+
+            </div>
+        {% endfor %}
+        
+        {% if cart %}
+        <div class="flex items-center justify-center mt-4 px-3 py-2 bg-white text-red-500 text-sm uppercase font-medium rounded focus:outline-none focus:bg-red-500">
+            <span>Total R${{ total|floatformat:2 }}</span>
+        </div>
+        <a href="http://{{ request.get_host }}/market_checkout/{{ market.id }}" id="btnFinalizarCompra" target="_blank" class="flex items-center justify-center mt-4 px-3 py-2 bg-theme text-white text-sm uppercase font-medium rounded hover:bg-red-500 focus:outline-none focus:bg-red-500">
+            <span>Finalizar compra</span>
+            <svg class="h-5 w-5 mx-2" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor"><path d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
+        </a>
+        {% endif %}
+        <a href="http://{{ request.get_host }}/market_orders/{{ market.id }}" class="flex items-center justify-center mt-4 px-3 py-2 bg-theme text-white text-sm uppercase font-medium rounded hover:bg-red-500 focus:outline-none focus:bg-red-500">
+            <span>Meus pedidos</span>
+            <svg class="h-5 w-5 mx-2" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor"><path d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
+        </a>
+    </div>
+    <main class="my-8">
+        <div class="flex flex-col sm:flex-row items-center justify-between" style="background-color: white; width: 100vw; margin-bottom: 0;">
+            <!-- Formulário de Filtro por Categoria -->
+            <form method="get" action="{% url 'merkadu:market' pk=market.id %}" class="flex items-center mb-2 sm:mb-0">
+                <div class="categories-filter mt-4 mx-4">
+                    <label for="category" class="text-black">Categorias:</label>
+                    <select name="category" id="category" class="ml-2">
+                        <option value="" {% if not selected_category %}selected{% endif %}>Todas</option>
+                        {% for key, value in translated_categories.items %}
+                            <option value="{{ key }}" {% if selected_category == key %}selected{% endif %}>{{ value }}</option>
+                        {% endfor %}
+                    </select>
+                    <button type="submit" class="ml-2 bg-gray-300 px-2 py-1 rounded text-white">Filtrar</button>
+                </div>
+            </form>
+        
+            <!-- Contagem de Produtos -->
+            <p style="align-items: center; margin: 0;" class="mb-2 sm:mb-0">
+                Encontrados <b>{{ products_count }}</b> produtos.
+            </p>
+        
+            <!-- Formulário de Ordenação -->
+            <form method="get" action="{% url 'merkadu:market' pk=market.id %}" class="flex items-right">
+                <label for="sort" class="text-white">Ordenar por:</label>
+                <select name="sort" id="sort" class="ml-2">
+                    <option value="price_asc">Preço: menor ao maior</option>
+                    <option value="price_desc">Preço: maior ao menor</option>
+                    <option value="name_asc">Nome: crescente</option>
+                    <option value="name_desc">Nome: decrescente</option>
+                    <option value="relevance">Relevância</option>
+                </select>
+                <button type="submit" class="ml-2 bg-gray-300 px-2 py-1 rounded text-white">Aplicar</button>
+            </form>
+        </div>
+        <div class="area-cards container mx-auto px-6 mt-1">
+            <div class="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 mt-6">
+                <!-- Apresentação de produtos -->
+                {% if products %}
+                    {% for product in products %}
+                    <div class="hover:grow hover:shadow-lg rounded-md overflow-hidden card-produto relative">
+                        <img class="object-cover h-30 w-full" src="{{ product.image.url }}" alt="{{ product.name }}">
+                        <button class="absolute top-2 right-2 text-red-500 hover:text-red-700 focus:outline-none">
+                            <i class="far fa-heart"></i>
+                        </button>
+                            <a href="{{ market.id }}?add_product={{product.id}}">
+                                <div>
+                                    <!-- <button class="botao-estilizado" data-product-id="{{ product.id }}">Adicionar ao Carrinho</button> -->
+                                    <!-- Seletor de quantidade -->
+                                    <a class="oculto" id="seletor-{{ product.id }} align-middle">
+
+                                        <a href="{{ market.id }}?remove_product={{product.id}}">
+                                            <button class="text-red-500 focus:outline-none focus:text-red-500">
+                                                <svg class="h-5 w-5" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor"><path d="M15 12H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                                            </button>
+                                        </a>
+                                        <span class="text-red-700 mx-1">{{ product.quantity }}</span>
+                                        <a href="{{ market.id }}?add_product={{product.id}}">
+                                            <button class="text-red-500 focus:outline-none focus:text-red-500">
+                                                <svg class="h-5 w-5" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor"><path d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                                            </button>
+                                        </a>
+                                    </a>
+                                </div>
+                            </a>
+                        </img>
+                        <!-- <div class="px-5 py-3"> -->
+                            <div class="card-conteudo">
+                                <h3 class="text-black-300 capitalize text-xs">{{ product.descript }}</h3>
+                                <span>R$ {{ product.value|floatformat:2 }}</span>
+                            </div>
+                    </div>
+                    {% endfor %}
+                {% else %}
+                    <p>Nenhum produto encontrado.</p>
+                {% endif %}
+            </div>
+        </div>
+        
+        <!-- <footer class="rodape" style="background-color: rgb(0, 19, 33);"> -->
+            <!-- <footer class="rodape fixed bottom-0 w-full bg-white border-t border-gray-200 hide-on-desktop">
+                <div class=" flex justify-between mx-auto py-5 px-6">
+                    <a href="/home" class="footer-btn" style="color:white"><i class="fas fa-home"></i> Home</a>
+                    <a href="/favoritos" class="footer-btn" style="color:white"><i class="fas fa-heart"></i> Favoritos</a>
+                    <a href="/carrinho" class="footer-btn" style="color:white"><i class="fas fa-shopping-cart"></i> Carrinho</a>
+                    <a href="/minha-conta" class="footer-btn" style="color:white"><i class="fas fa-user"></i> Minha Conta</a>
+                </div>
+            </footer> -->
+        <!-- </footer> -->
+    </main>
+</div>
+
+
+
+{% endblock %}

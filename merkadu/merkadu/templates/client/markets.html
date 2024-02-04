@@ -1,0 +1,418 @@
+{% extends "base-home.html" %}
+{% load widget_tweaks %}
+{% block content %}
+  <header class="header">
+    <div class="container mx-auto px-6 py-3 flex justify-between items-center">
+      <img src="media/media/merkadu.png" alt="Logotipo" width="150" height="150">
+      <!-- Outros elementos do cabeçalho, se houver -->
+      <!-- Filtro de pesquisa e categorias -->
+      <div>
+        <!-- Formulário de pesquisa -->
+        <form action="/search" method="get" class="flex" style="width: 100%;">
+          <input type="text" name="query" placeholder="Pesquisar produtos..." class="px-4 py-1 border rounded-l" style="width: 100%;">
+          <button type="submit" class="px-2 py-1 border rounded-r border-l-0">
+            <i class="fas fa-search"></i>
+          </button>
+        </form>
+        <!-- Menu de Categorias -->
+        <div class="flex flex-wrap mt-2">
+          <label class="flex items-center mr-2">
+            <input type="checkbox" class="form-checkbox" name="bebidas">
+            <span class="ml-1 text-sm">Bebidas</span>
+          </label>
+          <label class="flex items-center mr-2">
+            <input type="checkbox" class="form-checkbox" name="mercearia">
+            <span class="ml-1 text-sm">Mercearia</span>
+          </label>
+          <label class="flex items-center mr-2">
+            <input type="checkbox" class="form-checkbox" name="produtos-limpeza">
+            <span class="ml-1 text-sm">Produtos de limpeza</span>
+          </label>
+          <label class="flex items-center mr-2">
+            <input type="checkbox" class="form-checkbox" name="higiene-pessoal">
+            <span class="ml-1 text-sm">Higiene pessoal</span>
+          </label>
+          <label class="flex items-center mr-2">
+            <input type="checkbox" class="form-checkbox" name="medicamentos">
+            <span class="ml-1 text-sm">Medicamentos</span>
+          </label>
+          <!-- Adicione mais checkboxes conforme necessário -->
+        </div>
+    </div>
+  </header>
+  <script src="https://api.tiles.mapbox.com/mapbox-gl-js/v2.3.0/mapbox-gl.js"></script>
+    <link
+      href="https://api.tiles.mapbox.com/mapbox-gl-js/v2.3.0/mapbox-gl.css"
+      rel="stylesheet"
+    />
+    <style>
+
+      header {
+        z-index: 3; /* Garantindo que o cabeçalho fique acima do mapa */
+        position: relative; /* Posição relativa para o cabeçalho */
+        background-color: #fff; /* Cor de fundo para destaque */
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1); /* Sombra leve para destaque */
+      }
+
+      body {
+        color: #404040;
+        font: 400 15px/22px "Source Sans Pro", "Helvetica Neue", Sans-serif;
+        margin: 0;
+        padding: 0;
+        -webkit-font-smoothing: antialiased;
+      }
+
+      * {
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        box-sizing: border-box;
+      }
+
+      .map {
+        z-index: 2;
+        position: absolute;
+        width: 100%;
+        top: 10%;
+        bottom: 0;
+      }
+
+      h1 {
+        font-size: 22px;
+        margin: 0;
+        font-weight: 400;
+        line-height: 20px;
+        padding: 20px 2px;
+      }
+
+      .heading {
+        background: #fff;
+        border-bottom: 1px solid #eee;
+        min-height: 60px;
+        line-height: 60px;
+        padding: 0 10px;
+        background-color: #fff;
+        color: #FA0F0F;
+      }
+
+      .listings {
+        height: 100%;
+        overflow: auto;
+        padding-bottom: 60px;
+      }
+
+      .listings .item {
+        display: block;
+        border-bottom: 1px solid #eee;
+        padding: 10px;
+        text-decoration: none;
+      }
+
+      .listings .item:last-child {
+        border-bottom: none;
+      }
+      .listings .item .title {
+        display: block;
+        color: #FA0F0F;
+        font-weight: 700;
+      }
+
+      .listings .item .title small {
+        font-weight: 400;
+      }
+      .listings .item.active .title,
+      .listings .item .title:hover {
+        color: #FA0F0F;
+      }
+      .listings .item.active {
+        background-color: #f8f8f8;
+      }
+      ::-webkit-scrollbar {
+        width: 3px;
+        height: 3px;
+        border-left: 0;
+        background: rgba(0, 0, 0, 0.1);
+      }
+      ::-webkit-scrollbar-track {
+        background: none;
+      }
+      ::-webkit-scrollbar-thumb {
+        background: #FA0F0F;
+        border-radius: 0;
+      }
+
+      .marker {
+        border: none;
+        cursor: pointer;
+        height: 53px;
+        width: 40px;
+        background-color: rgba(0, 0, 0, 0);
+      }
+
+      .clearfix {
+        display: block;
+      }
+      .clearfix:after {
+        content: ".";
+        display: block;
+        height: 0;
+        clear: both;
+        visibility: hidden;
+      }
+
+      /* Marker tweaks */
+      .mapboxgl-popup {
+        padding-bottom: 50px;
+      }
+
+      .mapboxgl-popup-close-button {
+        display: none;
+      }
+      .mapboxgl-popup-content {
+        font: 400 15px/22px "Source Sans Pro", "Helvetica Neue", Sans-serif;
+        padding: 0;
+        width: 180px;
+      }
+      .mapboxgl-popup-content-wrapper {
+        padding: 1%;
+      }
+      .mapboxgl-popup-content h3 {
+        background: #FA0F0F;
+        color: #fff;
+        margin: 0;
+        display: block;
+        padding: 10px;
+        border-radius: 3px 3px 0 0;
+        font-weight: 700;
+        margin-top: -15px;
+      }
+
+      .mapboxgl-popup-content h4 {
+        margin: 0;
+        display: block;
+        padding: 10px 10px 10px 10px;
+        font-weight: 400;
+      }
+
+      .mapboxgl-popup-content div {
+        padding: 10px;
+      }
+
+      .mapboxgl-container .leaflet-marker-icon {
+        cursor: pointer;
+      }
+
+      .mapboxgl-popup-anchor-top > .mapboxgl-popup-content {
+        margin-top: 15px;
+      }
+
+      .mapboxgl-popup-anchor-top > .mapboxgl-popup-tip {
+        border-bottom-color: #FA0F0F;
+      }
+    </style>
+    
+    <div id="map" class="map" style="z-index: 2;-top: 50px;"></div>
+    
+    <script>
+      function getLocation() {
+        if (navigator.geolocation) {
+          navigator.geolocation.getCurrentPosition(Position);
+        } else {
+          alert("Geolocalização não é suportada no seu navegador.");
+        }
+      }
+      
+      function Position(position) {
+        latitude = position.coords.latitude
+        longitude = position.coords.longitude
+      
+
+        /* This will let you use the .remove() function later on */
+        if (!("remove" in Element.prototype)) {
+          Element.prototype.remove = function () {
+            if (this.parentNode) {
+              this.parentNode.removeChild(this);
+            }
+          };
+        }
+        /* MY ACESS TOKEN  */
+        /* pk.eyJ1IjoibWlrYWlvIiwiYSI6ImNrbWw1dGUzaTA0ZWgycG4zcG1mNjlndTkifQ.9FPy7-u0YmuPnjezn2kDPA */
+
+        mapboxgl.accessToken =
+          "pk.eyJ1IjoibWlrYWlvIiwiYSI6ImNrbWw1dGUzaTA0ZWgycG4zcG1mNjlndTkifQ.9FPy7-u0YmuPnjezn2kDPA";
+
+        /**
+        * Add the map to the page
+        */
+        
+        var map = new mapboxgl.Map({
+          container: "map",
+          style: "mapbox://styles/mapbox/light-v10",
+          center: [longitude, latitude],
+          zoom: 13,
+          scrollZoom: false,
+        });
+
+        var stores = {
+          type: "FeatureCollection",
+          features: [
+            {% for market in markets %}
+            {% if market.latitude %}
+            {
+              type: "Feature",
+              geometry: {
+                type: "Point",
+                coordinates: [{{ market.longitude }}, {{ market.latitude }}],
+              },
+              properties: {
+                market: "{{ market.id }}",
+                name: "{{ market.name }}",
+                phoneFormatted: "(69) 8422-7336",
+                phone: "2022347336",
+                address: "5560 Setor 9 Av. Perimental leste",
+                city: "Ariquemes RO",
+                country: "Brasil",
+                crossStreet: "Macaé com Perimental leste",
+                postalCode: "",
+                state: "Rondônia",
+              },
+            },
+            {% endif %}
+            {% endfor %}
+          ],
+        };
+
+
+        stores.features.forEach(function (store, i) {
+          store.properties.id = i;
+        });
+
+
+        map.on("load", function (e) {
+          map.addSource("places", {
+            type: "geojson",
+            data: stores,
+          });
+          addMarkers();
+        });
+
+        function addMarkers() {
+          /* For each feature in the GeoJSON object above: */
+          stores.features.forEach(function (marker) {
+            /* Create a div element for the marker. */
+            var el = document.createElement("div");
+            /* Assign a unique `id` to the marker. */
+            el.id = "marker-" + marker.properties.id;
+            /* Assign the `marker` class to each marker for styling. */
+            el.className = "marker";
+            
+            var svg = `<?xml version="1.0" encoding="UTF-8"?>
+              <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="40pt" height="53pt" viewBox="0 0 40 53" version="1.1">
+              <g id="surface1">   
+              <path style=" stroke:none;fill-rule:nonzero;fill:rgb(100%,0%,0%);fill-opacity:1;" d="M 40 11.417969 L 40 27.308594 C 40 33.617188 34.722656 38.726562 28.214844 38.726562 L 27.023438 38.726562 L 20.933594 44.621094 C 20.695312 44.855469 20.367188 45 20 45 C 19.664062 45 19.355469 44.878906 19.121094 44.679688 L 19.019531 44.582031 L 19.015625 44.578125 L 12.976562 38.726562 L 11.78125 38.726562 C 5.277344 38.726562 0 33.617188 0 27.308594 L 0 11.417969 C 0 5.113281 5.277344 0 11.785156 0 L 28.214844 0 C 34.722656 0 40 5.113281 40 11.417969 Z M 40 11.417969 "/>
+              <path style=" stroke:none;fill-rule:evenodd;fill:rgb(100%,100%,100%);fill-opacity:1;" d="M 10 13.125 L 10 15 L 11.875 15 L 15.25 22.117188 L 13.984375 24.402344 C 13.296875 25.660156 14.199219 27.1875 15.621094 27.1875 L 26.867188 27.1875 L 26.867188 25.3125 L 15.621094 25.3125 L 16.652344 23.4375 L 23.636719 23.4375 C 24.339844 23.4375 24.957031 23.054688 25.277344 22.472656 L 28.628906 16.386719 C 28.976562 15.769531 28.527344 15 27.816406 15 L 13.945312 15 L 13.066406 13.125 Z M 15.621094 28.125 C 14.59375 28.125 13.757812 28.96875 13.757812 30 C 13.757812 31.03125 14.59375 31.875 15.621094 31.875 C 16.652344 31.875 17.496094 31.03125 17.496094 30 C 17.496094 28.96875 16.652344 28.125 15.621094 28.125 Z M 23.128906 30 C 23.128906 28.96875 23.964844 28.125 24.996094 28.125 C 26.023438 28.125 26.867188 28.96875 26.867188 30 C 26.867188 31.03125 26.023438 31.875 24.996094 31.875 C 23.964844 31.875 23.128906 31.03125 23.128906 30 Z M 23.128906 30 "/>
+              <path style=" stroke:none;fill-rule:nonzero;fill:rgb(100%,0%,0%);fill-opacity:0.301961;" d="M 32.5 40.5 C 32.5 47.402344 26.902344 53 20 53 C 13.097656 53 7.5 47.402344 7.5 40.5 C 7.5 33.597656 13.097656 28 20 28 C 26.902344 28 32.5 33.597656 32.5 40.5 Z M 32.5 40.5 "/>
+              </g>
+              </svg>
+            `
+            el.innerHTML = svg
+
+            new mapboxgl.Marker(el, { offset: [0, -23] })
+              .setLngLat(marker.geometry.coordinates)
+              .addTo(map);
+
+            el.addEventListener("click", function (e) {
+              /* Fly to the point */
+              flyToStore(marker);
+              /* Close all other popups and display popup for clicked store */
+              createPopUp(marker);
+              /* Highlight listing in sidebar */
+              var activeItem = document.getElementsByClassName("active");
+              e.stopPropagation();
+              if (activeItem[0]) {
+                activeItem[0].classList.remove("active");
+              }
+              var listing = document.getElementById(
+                "listing-" + marker.properties.id
+              );
+              listing.classList.add("active");
+            });
+          });
+        }
+
+        /**
+        * Add a listing for each store to the sidebar.
+        **/
+        function buildLocationList(data) {
+          data.features.forEach(function (store, i) {
+            /**
+            * Create a shortcut for `store.properties`,
+            * which will be used several times below.
+            **/
+            var prop = store.properties;
+
+            /* Add a new listing section to the sidebar. */
+            var listings = document.getElementById("listings");
+            var listing = listings.appendChild(document.createElement("div"));
+            /* Assign a unique `id` to the listing. */
+            listing.id = "listing-" + prop.id;
+            /* Assign the `item` class to each listing for styling. */
+            listing.className = "item";
+
+            /* Add the link to the individual listing created above. */
+            var link = listing.appendChild(document.createElement("a"));
+            link.href = "#";
+            link.className = "title";
+            link.id = "link-" + prop.id;
+            link.innerHTML = prop.address;
+
+            /* Add details to the individual listing. */
+            var details = listing.appendChild(document.createElement("div"));
+            details.innerHTML = prop.city;
+            if (prop.phone) {
+              details.innerHTML += " &middot; " + prop.phoneFormatted;
+            }
+
+            link.addEventListener("click", function (e) {
+              for (var i = 0; i < data.features.length; i++) {
+                if (this.id === "link-" + data.features[i].properties.id) {
+                  var clickedListing = data.features[i];
+                  flyToStore(clickedListing);
+                  createPopUp(clickedListing);
+                }
+              }
+              var activeItem = document.getElementsByClassName("active");
+              if (activeItem[0]) {
+                activeItem[0].classList.remove("active");
+              }
+              this.parentNode.classList.add("active");
+            });
+          });
+        }
+
+
+        function flyToStore(currentFeature) {
+          map.flyTo({
+            center: currentFeature.geometry.coordinates,
+            zoom: 15,
+          });
+        }
+
+        function createPopUp(currentFeature) {
+          var popUps = document.getElementsByClassName("mapboxgl-popup");
+          if (popUps[0]) popUps[0].remove();
+          var popup = new mapboxgl.Popup({ closeOnClick: false })
+            .setLngLat(currentFeature.geometry.coordinates)
+            .setHTML(
+              `<div id="listing-${currentFeature.properties.id}">` +
+              `<h3 class="text-center">${currentFeature.properties.name}</h3>` +
+                `<a href="market/${currentFeature.properties.market}"><button class="bg-blueGray-800 text-red-600 text-sm font-bold uppercase px-6 py-3 rounded shadow outline-none focus:outline-none mr-1 mb-1 w-full ease-linear transition-all duration-150">` +
+                "Comprar" +
+                "</button></a>" + "</div>"
+            )
+            .addTo(map);
+        }
+      }
+      getLocation()
+    </script>
+
+{% endblock %}

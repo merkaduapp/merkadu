@@ -1,0 +1,158 @@
+{% extends "base-home.html" %}
+{% load widget_tweaks %}
+{% block content %}
+
+
+<div class="bg-white">
+    <script type="text/javascript">
+        function finalize(){
+            event.preventDefault();
+
+            var name = document.getElementById('name').value
+            var cpf = document.getElementById('cpf').value
+            var phone = document.getElementById('phone').value
+            var address_street = document.getElementById('address_street').value
+            var address_district = document.getElementById('address_district').value
+            var address_number = document.getElementById('address_number').value
+            window.location.replace(
+                    "http://{{ request.get_host }}/market_checkout/{{ market.id }}?" 
+                    + "address_street=" + address_street + "&"
+                    + "address_district=" + address_district + "&"
+                    + "address_number=" + address_number + "&"
+                    + "name=" + name + "&"
+                    + "cpf=" + cpf + "&"
+                    + "phone=" + phone + "&"
+                    + "checkout=" + "True"
+            );
+        }
+
+        function copyPix() {
+            var copyText = "{{pix_info.qr_code}}"
+            copyText.select();
+            copyText.setSelectionRange(0, 99999);
+
+            document.execCommand("copy");
+
+            alert("Código pix copiado com sucesso");
+        }
+    </script>
+    <header>
+        <div class="container mx-auto px-6 py-3">
+            <div class="flex items-center justify-between">
+                <div class="flex justify-between w-full">
+                    <a href="http://{{ request.get_host }}/market/{{ market.id }}" class="text-red-500 focus:outline-none mx-4 sm:mx-0">
+                        <svg xmlns="https://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 15l-3-3m0 0l3-3m-3 3h8M3 12a9 9 0 1118 0 9 9 0 01-18 0z" />
+                        </svg>
+                    </a>
+                </div>
+                   
+                <div class="w-full text-red-600 md:text-center text-2xl font-semibold">
+                    {{ market.name }}
+                </div>
+                <div class="hidden flex items-center justify-end text-red-500 w-full md:flex md:items-center">
+                    <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" xmlns="https://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd" clip-rule="evenodd" d="M16.2721 10.2721C16.2721 12.4813 14.4813 14.2721 12.2721 14.2721C10.063 14.2721 8.27214 12.4813 8.27214 10.2721C8.27214 8.06298 10.063 6.27212 12.2721 6.27212C14.4813 6.27212 16.2721 8.06298 16.2721 10.2721ZM14.2721 10.2721C14.2721 11.3767 13.3767 12.2721 12.2721 12.2721C11.1676 12.2721 10.2721 11.3767 10.2721 10.2721C10.2721 9.16755 11.1676 8.27212 12.2721 8.27212C13.3767 8.27212 14.2721 9.16755 14.2721 10.2721Z" fill="currentColor" /><path fill-rule="evenodd" clip-rule="evenodd" d="M5.79417 16.5183C2.19424 13.0909 2.05438 7.39409 5.48178 3.79417C8.90918 0.194243 14.6059 0.054383 18.2059 3.48178C21.8058 6.90918 21.9457 12.6059 18.5183 16.2059L12.3124 22.7241L5.79417 16.5183ZM17.0698 14.8268L12.243 19.8965L7.17324 15.0698C4.3733 12.404 4.26452 7.97318 6.93028 5.17324C9.59603 2.3733 14.0268 2.26452 16.8268 4.93028C19.6267 7.59603 19.7355 12.0268 17.0698 14.8268Z" fill="currentColor" />
+                    </svg>
+                    <span class="mx-1 text-sm">{{ market.city}} - {{ market.state }}</span>
+                </div>
+            </div>
+        </div>
+    </header>
+    
+    <main class="my-8">
+        <div class="mx-auto w-3/4">
+            <div class="flex items-center justify-between">
+                <h3 class="text-2xl font-medium text-red-700">Finalizar compra</h3>
+                <a href="http://{{ request.get_host }}/accounts/logout/">
+                    <button @click="cartOpen = !cartOpen" class="text-red-500 focus:outline-none">
+                        Sair dessa conta
+                    </button>
+                </a>
+            </div>
+            <hr class="my-3">
+            {% for product in cart.values %}
+                <div class="flex justify-between mt-6">
+                    <div class="flex">
+                        <img class="h-20 w-20 object-cover rounded" src="{{ product.image }}" alt="">
+                        <div class="mx-3">
+                            <h3 class="text-sm text-red-500">{{ product.name }}</h3>
+                            <div class="flex items-center mt-2">
+                                <a href="{{ market.id }}?remove_product={{product.id}}">
+                                    <button class="text-red-500 focus:outline-none focus:text-red-500">
+                                        <svg class="h-5 w-5" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor"><path d="M15 12H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                                    </button>
+                                </a>
+                                <span class="text-red-700 mx-2">{{ product.quantity }}</span>
+                                <a href="{{ market.id }}?add_product={{product.id}}">
+                                    <button class="text-red-500 focus:outline-none focus:text-red-500">
+                                        <svg class="h-5 w-5" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor"><path d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                                    </button>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <span class="text-red-500">R${{ product.sub_total }}</span>
+                </div>
+            {% endfor %}
+            {% if cart %}
+            <hr class="my-3">
+            <div class="flex justify-between mt-6">
+                <div class="flex">
+                    <img class="h-20 w-20 object-cover rounded" src="http://{{ request.get_host }}/media/delivery.png" alt="">
+                    <div class="mx-3">
+                        <h3 class="text-sm text-red-500">Taxa de entrega</h3>
+                    </div>
+                </div>
+                <span class="text-red-500">R${{ market.delivery_fee }}</span>
+            </div>
+            <div class="flex justify-between mt-6">
+                <div class="flex">
+                    <img class="h-20 w-20 object-cover rounded" src="http://{{ request.get_host }}/media/gurgle.png" alt="">
+                    <div class="mx-3">
+                        <h3 class="text-sm text-red-500">Taxinha do Merkadu</h3>
+                    </div>
+                </div>
+                <span class="text-red-500">R${{ config.merkadu_tax }}</span>
+            </div>
+            <hr class="my-3">
+            <div class="flex items-center justify-center mt-4 px-3 py-2 bg-white text-red-500 text-sm uppercase font-medium rounded focus:outline-none focus:bg-red-500">
+                <span>Total R${{total}}</span>
+            </div>
+            <div class="w-full leading-loose">
+                <form onsubmit=finalize() class="w-full p-10 bg-white rounded shadow-xl">
+                  <div>
+                    <p class="text-red-700 font-medium">Informação de entrega</p>
+                    <div class="mt-2">
+                        <input class="w-full px-2 py-2 bg-gray-200 rounded" id="name" name="name" type="text" required="" placeholder="NOME COMPLETO">
+                    </div>
+                    <div class="mt-2">
+                        <input class="w-full px-2 py-2 bg-gray-200 rounded" id="cpf" name="cpf" type="number" required="" placeholder="CPF">
+                    </div>
+                    <div class="mt-2">
+                        <input class="w-full px-2 py-2 bg-gray-200 rounded" id="phone" name="phone" type="number" required="" placeholder="TELEFONE">
+                    </div>
+                    <div class="mt-2">
+                        <input class="w-full px-2 py-2 bg-gray-200 rounded" id="address_street" name="address_street" type="text" required="" placeholder="RUA">
+                    </div>
+                    <div class="mt-2">
+                        <input class="w-full px-2 py-2 bg-gray-200 rounded" id="address_district" name="address_district" type="text" required="" placeholder="BAIRRO">
+                    </div>
+                    <div class="mt-2">
+                        <input class="w-full px-2 py-2 bg-gray-200 rounded" id="address_number" name="address_number" maxlength="10" type="number" required="" placeholder="NÚMERO">
+                    </div>
+                  </div>
+                  <div class="flex items-center justify-center mt-4 px-3 py-2 bg-white text-red-500 text-sm uppercase font-medium rounded focus:outline-none focus:bg-red-500">
+                    <span>{{error}}</span>
+                    </div>
+                  <button class="w-full my-3 bg-theme text-white active:bg-pink-600 font-bold uppercase text-xs py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear transition-all duration-150">
+                        Comprar R${{total}}
+                  </button>
+                </form>
+            </div>
+            {% endif %}
+        </div>
+    </main>
+</div>
+
+{% endblock %}
