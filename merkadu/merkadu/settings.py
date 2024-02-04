@@ -2,20 +2,16 @@ import os
 from flask import Flask
 from flask_mail import Mail
 import mimetypes
-import secrets
 import django_on_heroku
 from decouple import config
 
-
-
-SECRET_KEY = secrets.token_hex(32)
 
 
 app = Flask(__name__)
 mail= Mail(app)
 
 DJANGO_SETTINGS_MODULE = config('DJANGO_SETTINGS_MODUL', default='merkadu.settings')
-ALLOWED_HOSTS = ['3.22.61.108', 'www.merkaduapp.com', ".railway.app"]
+ALLOWED_HOSTS = ['*']
 
 
 
@@ -23,7 +19,7 @@ mimetypes.add_type("image/webp", ".webp", True)
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-SECRET_KEY = os.getenv('SECRET_KEY')
+SECRET_KEY = config('SECRET_KEY')
 
 DEBUG = os.getenv('DEBUG', default=True)
 

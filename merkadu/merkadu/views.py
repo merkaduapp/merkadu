@@ -2,7 +2,7 @@ from allauth.account.views import LoginView
 from django.http import HttpResponseRedirect
 from django.views.decorators.csrf import csrf_protect
 import requests
-from utils import enviar_email_boas_vindas
+from .utils import enviar_email_boas_vindas
 
 
 
