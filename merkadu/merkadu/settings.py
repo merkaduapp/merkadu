@@ -22,7 +22,7 @@ mail= Mail(app)
 
 DEBUG = config('DEBUG', cast=bool, default=False)
 DJANGO_SETTINGS_MODULE = config('DJANGO_SETTINGS_MODUL', default='merkadu.settings')
-ALLOWED_HOSTS = ['3.22.61.108', 'www.merkaduapp.com']
+ALLOWED_HOSTS = ['3.22.61.108', 'www.merkaduapp.com', ".railway.app"]
 
 
 
