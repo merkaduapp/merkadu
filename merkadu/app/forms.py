@@ -3,7 +3,6 @@ from django import forms
 from app.models import Product, Order, Market, ProdutoCatalogo
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
-from django.contrib.auth import get_user_model
 from django import forms
 from .models import CustomUser
 
@@ -79,16 +78,6 @@ class MarketForm(forms.ModelForm):
             'longitude',
             'logotipo',
         )
-
-
-# class ParceiroLoginForm(forms.Form):
-#     email = forms.EmailField(label='E-mail de usuário')
-#     senha = forms.CharField(widget=forms.PasswordInput, label='Senha')
-
-# class LojistaLoginForm(forms.Form):
-#     email = forms.EmailField(label='E-mail de usuário')
-#     senha = forms.CharField(widget=forms.PasswordInput, label='Senha')
-
 
 
 class CustomUserCreationForm(UserCreationForm):

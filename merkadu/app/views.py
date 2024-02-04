@@ -1,53 +1,27 @@
 import json
-from datetime import datetime
 import logging
-import ast
-from django.urls import reverse
-
 from django.conf import settings
-from django.http import JsonResponse, HttpResponse
-
-# from decouple import config
+from django.http import HttpResponse
 import requests
-
 import pandas as pd
-import csv, io
 from django.contrib import messages
 from django.core.exceptions import BadRequest
-from django.http import JsonResponse
 from django.contrib.auth.models import User
-from django.shortcuts import get_object_or_404
-
-import base64
 from django.db.models import Q
 from app.models import Product, Order, Market, BaseConfiguration, CustomUser
-from .forms import UserForm, MarketForm, ProductForm, OrderForm
-
+from .forms import MarketForm, ProductForm, OrderForm
 from django.contrib.postgres.search import SearchVector
-from django import forms
 from django.contrib.auth.decorators import login_required
-from django.core.paginator import Paginator
 from django.views.decorators.csrf import csrf_protect
 from django.contrib.auth import authenticate
 from django.shortcuts import render, redirect
-from django.utils.encoding import force_bytes
 from django.contrib.auth import login as auth_login
-# from core.models import User
 import math
-from django.views.generic.edit import FormView
-from django.views.generic import TemplateView
-# import pdb; pdb.set_trace()
-from django.views import View
-from django.urls import reverse
-
-
-
 from django.shortcuts import render, redirect
-from django.views import View
 from django.contrib.auth import authenticate, login as auth_login
 from .forms import CustomUserCreationForm
 from django.contrib.auth.forms import AuthenticationForm
-from .models import Product, ProdutoCatalogo
+from .models import Product
 
 
 logger = logging.getLogger(__name__)
@@ -88,7 +62,6 @@ def search_products_market(request, market_id):
 
 def empty_cart(request):
     # Lógica para esvaziar o carrinho
-    # Isso dependerá de como você implementou o carrinho na sua aplicação
 
     # Exemplo: Se você estiver usando sessões para armazenar o carrinho
     request.session.pop('cart', None)
@@ -142,44 +115,6 @@ def user_login(request):
     else:
         form = AuthenticationForm()
     return render(request, 'registration/login.html', {'form': form})
-
-
-
-# class MultiLoginView(View):
-#     template_name = 'client/multilogin.html'
-
-#     def get(self, request, *args, **kwargs):
-#         parceiro_form = ParceiroLoginForm()
-#         lojista_form = LojistaLoginForm()
-#         return render(request, self.template_name, {'parceiro_form': parceiro_form, 'lojista_form': lojista_form})
-
-#     def post(self, request, *args, **kwargs):
-#         parceiro_form = ParceiroLoginForm(request.POST)
-#         lojista_form = LojistaLoginForm(request.POST)
-
-#         if parceiro_form.is_valid():
-#             email = parceiro_form.cleaned_data['email']
-#             senha = parceiro_form.cleaned_data['senha']
-#             user = authenticate(request, username=email, password=senha)
-
-#             if user is not None:
-#                 auth_login(request, user)
-#                 return JsonResponse({'success': True, 'url': reverse('merkadu:home' if user.is_parceiro else 'merkadu:configurations')})
-#             else:
-#                 return JsonResponse({'success': False, 'error': 'Credenciais inválidas para Parceiro.'})
-
-#         elif lojista_form.is_valid():
-#             email = lojista_form.cleaned_data['email']
-#             senha = lojista_form.cleaned_data['senha']
-#             user = authenticate(request, username=email, password=senha)
-
-#             if user is not None:
-#                 auth_login(request, user)
-#                 return JsonResponse({'success': True, 'url': reverse('merkadu:home' if user.is_parceiro else 'merkadu:configurations')})
-#             else:
-#                 return JsonResponse({'success': False, 'error': 'Credenciais inválidas para Lojista.'})
-
-#         return JsonResponse({'success': False, 'error': 'Dados inválidos no formulário.'})
 
 
 
@@ -242,7 +177,6 @@ def termos(request):
 
 
 # MARKET'S VIEWS
-
 @login_required
 @csrf_protect
 def dashboard(request):
@@ -580,10 +514,6 @@ def market_checkout(request, pk):
         user = request.user
     else:
         user = None
-    # try:
-    #     user = CustomUser.objects.get(email=request.user)
-    # except CustomUser.DoesNotExist:
-    #     return render(request, 'client/error.html', {'error_message': 'Usuário não encontrado.'})
 
     try:
         market = Market.objects.get(id=pk)
@@ -777,7 +707,6 @@ def market_checkout(request, pk):
 
 
 # ADMIN'S VIEWS
-
 @login_required
 @csrf_protect
 def pay_markets(request):

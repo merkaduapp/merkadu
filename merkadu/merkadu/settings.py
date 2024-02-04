@@ -1,4 +1,3 @@
-from pathlib import Path
 import os
 from flask import Flask
 from flask_mail import Mail
@@ -24,12 +23,12 @@ mimetypes.add_type("image/webp", ".webp", True)
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-SECRET_KEY = 'django-insecure-zn0j_kavg5i@7(80etsz4g8wry-4r9g)h!#-4l(&a$&g(ep0-d'
+SECRET_KEY = os.getenv('SECRET_KEY')
 
 DEBUG = os.getenv('DEBUG', default=True)
 
 
-MERCADO_PAGO_ACCESS_TOKEN = "APP_USR-1981258799368909-120418-44705d4fa27c6aa40d60636252959bd1-738308629"
+MERCADO_PAGO_ACCESS_TOKEN = os.getenv('MERCADO_PAGO_ACCESS_TOKEN')
 
 INSTALLED_APPS = [
     'django.contrib.admin',

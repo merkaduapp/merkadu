@@ -3,8 +3,6 @@ from .models import Market, Product, Order, BaseConfiguration, CustomUser, Custo
 from django.contrib.auth.admin import UserAdmin
 
 
-
-
 class BaseConfigurationAdmin(admin.ModelAdmin):
     pass
 
@@ -29,17 +27,6 @@ class ProductAdmin(admin.ModelAdmin):
 class OrderAdmin(admin.ModelAdmin):
     pass
 
-# @admin.register(Parceiro)
-# class ParceiroAdmin(admin.ModelAdmin):
-#     list_display = ('nome', 'cidade', 'email', 'telefone', 'data_cadastro')
-#     list_filter = ('cidade', 'data_cadastro')
-#     search_fields = ('nome', 'cidade', 'email')
-
-# @admin.register(Lojista)
-# class LojistaAdmin(admin.ModelAdmin):
-#     list_display = ('nome', 'cidade', 'email', 'telefone', 'data_cadastro')
-#     list_filter = ('cidade', 'data_cadastro')
-#     search_fields = ('nome', 'cidade', 'email')
 
 class CustomUserAdmin(UserAdmin):
     model = CustomUser

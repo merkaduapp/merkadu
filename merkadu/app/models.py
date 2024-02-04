@@ -1,12 +1,11 @@
 from django.db import models
-# from core.models import User
-# from django.contrib.postgres.fields import JSONField
 from django.db.models import JSONField
 from django.contrib.auth.models import AbstractUser, Permission, BaseUserManager
 import uuid
 import os
 from django.core.exceptions import ValidationError
 from django.utils.translation import gettext_lazy as _
+
 
 def validate_webp_extension(value):
     """
@@ -35,7 +34,7 @@ class CustomUser(AbstractUser):
     user_permissions = models.ManyToManyField(
         Permission,
         blank=True,
-        related_name='customuser_set'  # Adicione o related_name
+        related_name='customuser_set'
     )
 
     objects = CustomUserManager()
@@ -43,29 +42,6 @@ class CustomUser(AbstractUser):
     def __str__(self):
         return self.username
 
-# class Parceiro(models.Model):
-#     id = models.BigAutoField(primary_key=True)
-#     nome = models.CharField(max_length=100)
-#     cidade = models.CharField(max_length=50)
-#     email = models.EmailField()
-#     telefone = models.CharField(max_length=15)
-#     descricao = models.TextField()
-#     data_cadastro = models.DateTimeField(auto_now_add=True)
-
-#     def __str__(self):
-#         return self.nome
-    
-# class Lojista(models.Model):
-#     id = models.BigAutoField(primary_key=True)
-#     nome = models.CharField(max_length=100)
-#     cidade = models.CharField(max_length=50)
-#     email = models.EmailField()
-#     telefone = models.CharField(max_length=15)
-#     descricao = models.TextField()
-#     data_cadastro = models.DateTimeField(auto_now_add=True)
-
-#     def __str__(self):
-#         return self.nome
 
 def image_dir_path_products(instance, filename):
     extension = filename.split('.')[-1]
@@ -74,7 +50,6 @@ def image_dir_path_products(instance, filename):
     return os.path.join('product_images/', filename)
 
 
-# ToDo --> Fields de Dinheiro, Endereço e coordenadas
 class BaseConfiguration(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     merkadu_tax = models.FloatField('taxa do merkadu', null=True)

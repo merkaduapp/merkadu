@@ -13,7 +13,6 @@ app_name = 'merkadu'
 
 urlpatterns = [
     path('', app_views.home, name='home'),
-    # path('multi-login/', MultiLoginView.as_view(), name='multi-login'),
     path('pricing', app_views.pricing, name='pricing'),
     path('privacity-term', app_views.privacity_term, name='privacity_term'),
     path('termos', app_views.termos, name='termos'),
@@ -29,10 +28,6 @@ urlpatterns = [
     path('configurations', app_views.configurations, name='configurations'),
     path('empty_cart/', app_views.empty_cart, name='empty_cart'),
     path('market/<uuid:market_id>/search/', app_views.search_products_market, name='search_products_market'),
-
-
-
-
     # Client URLs
     path('markets', app_views.markets, name='markets'),
     path('market/<uuid:pk>', app_views.market, name='market'),
@@ -44,7 +39,6 @@ urlpatterns = [
     # Admin URLs
     path('pay_markets', app_views.pay_markets, name='pay_markets')
 ] +  static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
-
 
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
