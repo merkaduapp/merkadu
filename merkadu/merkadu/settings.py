@@ -7,7 +7,7 @@ from decouple import config
 import dj_database_url
 
 DATABASES = {
-    'default': dj_database_url.config(default='sqlite:///db.sqlite3')
+    'default': dj_database_url.config(default=os.environ.get('DATABASE_URL'))
 }
 
 app = Flask(__name__)
