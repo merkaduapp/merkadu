@@ -1,2 +1,1 @@
-release: python manage.py migrate
-web: gunicorn merkadu.wsgi:application --log-file -
+web: ls -la && exit 1
