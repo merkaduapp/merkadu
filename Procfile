@@ -1,1 +1,1 @@
-web: ls -la && exit 1
+web: gunicorn merkadu/merkadu.wsgi:application --log-file -
