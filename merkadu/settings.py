@@ -5,7 +5,7 @@ import mimetypes
 import django_on_heroku
 from decouple import config
 # import dj_database_url
-
+from pathlib import Path
 # DATABASES = {
 #     'default': dj_database_url.config(default=os.environ.get('DATABASE_URL'))
 # }
@@ -20,7 +20,8 @@ ALLOWED_HOSTS = ["127.0.0.1", ".railway.app"]
 
 mimetypes.add_type("image/webp", ".webp", True)
 
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+# BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY = "odsghodighsoigdsio"
 
