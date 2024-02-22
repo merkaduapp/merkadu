@@ -4,11 +4,11 @@ from flask_mail import Mail
 import mimetypes
 import django_on_heroku
 from decouple import config
-import dj_database_url
+# import dj_database_url
 
-DATABASES = {
-    'default': dj_database_url.config(default=os.environ.get('DATABASE_URL'))
-}
+# DATABASES = {
+#     'default': dj_database_url.config(default=os.environ.get('DATABASE_URL'))
+# }
 
 app = Flask(__name__)
 mail= Mail(app)
@@ -114,7 +114,16 @@ WSGI_APPLICATION = 'merkadu.wsgi.application'
 
 LOGIN_URL = 'login' 
 
-
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': os.environ["PGDATABASE"],
+        'USER': os.environ["PGUSER"],
+        'PASSWORD': os.environ["PGPASSWORD"],
+        'HOST': os.environ["PGHOST"],
+        'PORT': os.environ["PGPORT"],
+    }
+}
 
 
 
