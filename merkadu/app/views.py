@@ -8,7 +8,7 @@ from django.contrib import messages
 from django.core.exceptions import BadRequest
 from django.contrib.auth.models import User
 from django.db.models import Q
-from app.models import Product, Order, Market, BaseConfiguration, CustomUser
+from .models import Product, Order, Market, BaseConfiguration, CustomUser
 from .forms import MarketForm, ProductForm, OrderForm
 from django.contrib.postgres.search import SearchVector
 from django.contrib.auth.decorators import login_required

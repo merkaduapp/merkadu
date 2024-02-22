@@ -1,13 +1,12 @@
 from django.urls import path
-import app.views as app_views
+# from .views import views as app_views
 from django.conf import settings
 from django.conf.urls.static import static
-from .views import user_login, register
 from django.contrib.auth.views import LogoutView
+from . import views as app_views
 
 
-
-
+# /home/fernando/projects/merkadu-app/merkadu/app/views.py
 
 app_name = 'merkadu'
 
@@ -33,8 +32,8 @@ urlpatterns = [
     path('market/<uuid:pk>', app_views.market, name='market'),
     path('market_orders/<uuid:pk>', app_views.market_orders, name='market_orders'),
     path('market_checkout/<uuid:pk>', app_views.market_checkout, name='market_checkout'),
-    path('register/', register, name='register'),
-    path('login/', user_login, name='login'),
+    path('register/', app_views.register, name='register'),
+    path('login/', app_views.user_login, name='login'),
     path('logout/', LogoutView.as_view(), name='logout'),
     # Admin URLs
     path('pay_markets', app_views.pay_markets, name='pay_markets')
