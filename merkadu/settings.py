@@ -118,7 +118,7 @@ LOGIN_URL = 'login'
 
 DATABASES = {
    'default': {
-       'ENGINE': 'django.db.backends.postgresql',
+       'ENGINE': 'django.db.backends.postgresql_psycopg2',
        'NAME': 'railway',
        'USER': 'postgres',
        'PASSWORD': '4GB1bfC4f-3a-C1BcEf-2adgGFDeEFgf',
@@ -239,13 +239,11 @@ mail = Mail(app)
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
-
-STATICFILES_DIRS = [
-    (os.path.join(BASE_DIR, 'static')),
-]
+STATIC_URL = 'static/'
+STATICFILES_DIRS = [os.path.join(BASE_DIR, "static")]
 STATIC_ROOT =os.path.join(BASE_DIR, 'staticfiles')
 
-STATIC_URL = '/static/'
+
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
