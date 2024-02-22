@@ -4,14 +4,17 @@ from flask_mail import Mail
 import mimetypes
 import django_on_heroku
 from decouple import config
+import dj_database_url
 
-
+DATABASES = {
+    'default': dj_database_url.config(default='sqlite:///db.sqlite3')
+}
 
 app = Flask(__name__)
 mail= Mail(app)
 
 DJANGO_SETTINGS_MODULE = config('DJANGO_SETTINGS_MODUL', default='merkadu.settings')
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ["127.0.0.1", ".railway.app"]
 
 
 
@@ -116,16 +119,40 @@ AUTH_USER_MODEL = 'app.CustomUser'
 
 
 
-DATABASES = {
-    'default': {
-        'ENGINE': os.getenv('DB_ENGINE'),
-        'NAME': os.getenv('DB_NAME'),
-        'USER': os.getenv('DB_USER'),
-        'PASSWORD': os.getenv('DB_PASSWORD'),
-        'HOST': os.getenv('DB_HOST'),
-        'PORT': os.getenv('DB_PORT'),  
-    }
-}
+# DATABASES = {
+#     'default': {
+#         'ENGINE': os.getenv('DB_ENGINE'),
+#         'NAME': os.getenv('DB_NAME'),
+#         'USER': os.getenv('DB_USER'),
+#         'PASSWORD': os.getenv('DB_PASSWORD'),
+#         'HOST': os.getenv('DB_HOST'),
+#         'PORT': os.getenv('DB_PORT'),  
+#     }
+# }
+
+
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql_psycopg2',
+#         'NAME': 'merkadu',
+#         'USER': 'postgres',
+#         'PASSWORD': '1234',
+#         'HOST': 'localhost',
+#         'PORT': '5432',  
+#     }
+# }
+
+# DATABASES = {
+#    'default': {
+#        'ENGINE': 'django.db.backends.postgresql',
+#        'NAME': 'railway',
+#        'USER': 'postgres',
+#        'PASSWORD': '2jehihwY0E7TSXJsLwJy',
+#        'HOST': 'containers-us-west-184.railway.app',
+#        'PORT': '7437',
+#    }
+# }
+
 
 
 AUTH_PASSWORD_VALIDATORS = [
@@ -192,7 +219,9 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
 
-STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
+STATICFILES_DIRS = [
+    (os.path.join(BASE_DIR, 'static')),
+]
 STATIC_ROOT =os.path.join(BASE_DIR, 'staticfiles')
 
 STATIC_URL = '/static/'
