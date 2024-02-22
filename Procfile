@@ -1,1 +1,1 @@
-web: gunicorn merkadu/merkadu.wsgi:application --log-file -
+web: python manage.py migrate && gunicorn merkadu.wsgi
