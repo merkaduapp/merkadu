@@ -1,1 +1,1 @@
-web: python merkadu.manage.py migrate && gunicorn merkadu.merkadu.wsgi
+web: python3 manage.py migrate && gunicorn merkadu.wsgi
