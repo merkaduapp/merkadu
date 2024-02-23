@@ -101,6 +101,10 @@ THUMBNAIL_PROCESSORS = [
     'easy_thumbnails.processors.autocrop',
 ]
 
+CSRF_TRUSTED_ORIGINS = [
+    'https://merkadu-app-production.up.railway.app',
+]
+
 AUTHENTICATION_BACKENDS = [
     'django.contrib.auth.backends.ModelBackend',
 ]
