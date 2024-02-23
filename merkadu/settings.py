@@ -15,6 +15,7 @@ mail= Mail(app)
 
 DJANGO_SETTINGS_MODULE = config('DJANGO_SETTINGS_MODUL', default='merkadu.settings')
 ALLOWED_HOSTS = ["127.0.0.1", ".railway.app"]
+ALLOWED_HOSTS = ['merkaduapp.com', 'www.merkaduapp.com', 'merkadu-app-production.up.railway.app']
 
 
 
