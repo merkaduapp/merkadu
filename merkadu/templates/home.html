@@ -1,5 +1,6 @@
 {% extends "base-home.html" %}
 {% block content %}
+{% load static %}
 <!-- {% debug %} -->
 
 
@@ -71,7 +72,8 @@
   </head>  
   <header div class="flex items-center" style="background-color: rgb(255, 255, 255);">
     <!-- Seção do Logotipo -->
-    <img src="media/media/merkadu.png" width="180" height="180" style="padding-right: 20px;">
+    <img src="{% static 'merkadu/merkadu.svg' %}" alt="Logotipo da Empresa" class="logo">
+    <!-- <img src="media/media/merkadu.png" width="180" height="180" style="padding-right: 20px;"> -->
     <nav style="display: flex; width: 100%; justify-content: flex-end; align-items: center; padding-right: 20px;">
       <!-- <div style="color: rgb(0, 0, 0); text-decoration: none;">
         <a href="/" style="color: rgb(0, 0, 0); text-decoration: none;">Encontre um Parceiro</a>

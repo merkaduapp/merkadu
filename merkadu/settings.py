@@ -21,7 +21,7 @@ ALLOWED_HOSTS = ["127.0.0.1", ".railway.app"]
 mimetypes.add_type("image/webp", ".webp", True)
 
 # BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-BASE_DIR = Path(__file__).resolve().parent.parent
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 SECRET_KEY = "odsghodighsoigdsio"
 
@@ -240,7 +240,7 @@ mail = Mail(app)
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
-STATIC_URL = 'static/'
+STATIC_URL = '/static/'
 STATICFILES_DIRS = [os.path.join(BASE_DIR, "static")]
 STATIC_ROOT =os.path.join(BASE_DIR, 'staticfiles')
 
