@@ -51,6 +51,7 @@ INSTALLED_APPS = [
     "sslserver",
     "app",
     'rest_framework',
+    'corsheaders'
 ]
 
 
@@ -82,6 +83,17 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'allauth.account.middleware.AccountMiddleware',
+    'django.middleware.security.SecurityMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
+]
+
+CORS_ALLOWED_ORIGINS = [
+    'https://merkadu-app-production.up.railway.app',
+    # Adicione outras origens permitidas conforme necessário
+]
+
+CORS_ALLOW_METHODS = [
+    'POST',  # Adicione outros métodos conforme necessário
 ]
 
 THUMBNAIL_PROCESSORS = [
