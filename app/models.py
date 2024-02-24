@@ -86,7 +86,7 @@ class Market(models.Model):
     state = models.CharField('estado', null=True, max_length=250)
     latitude = models.CharField('latitude', null=True, max_length=250)
     longitude = models.CharField('longitude', null=True, max_length=250)
-    logotipo = models.ImageField('logomarca', upload_to='media/', max_length=250)
+    logotipo = models.ImageField('logomarca', upload_to='static/merkadu', max_length=250)
     is_active = models.BooleanField('ativo', default=False)
     created_at = models.DateTimeField('criado em', auto_now_add=True)
     updated_at = models.DateTimeField('atualizado em ', auto_now_add=True)
