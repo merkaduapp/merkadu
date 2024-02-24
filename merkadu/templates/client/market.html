@@ -134,7 +134,9 @@
             <div class="flex items-center justify-between px-4 py-2" style="background-color: white; width: 100vw;">
                 <!-- Seção do Logotipo -->
                 <div class="flex items-center">
-                    <img class="img-logo" src="{{ market.logotipo.url}}" alt="Logotipo" width="300" height="auto">
+                    {% if market.logotipo %}
+                        <img class="img-logo" src="{{ market.logotipo.url }}" alt="Logotipo" width="300" height="auto">
+                    {% endif %}
                 </div>
                 <!-- Seção de Controle do Usuário -->
                 <div class="flex items-center">
