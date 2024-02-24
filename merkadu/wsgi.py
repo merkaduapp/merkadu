@@ -1,10 +1,12 @@
 import os
-
+from config import configure_django_settings
 from django.core.wsgi import get_wsgi_application
 
 # Define o ambiente atual com base em uma variável de ambiente
 # Por exemplo, você pode definir a variável de ambiente 'ENVIRONMENT'
 # para 'local', 'development' ou 'production'.
+configure_django_settings()
+
 environment = os.getenv('ENVIRONMENT', 'local')
 
 # Determina qual arquivo de configuração do Django será usado com base no ambiente

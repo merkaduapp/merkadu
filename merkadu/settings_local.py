@@ -8,9 +8,6 @@ from decouple import config
 app = Flask(__name__)
 mail= Mail(app)
 
-# Configuração do módulo Django
-DJANGO_SETTINGS_MODULE = config('DJANGO_SETTINGS_MODULE', default='merkadu.settings_local')
-
 # Lista de hosts permitidos
 ALLOWED_HOSTS = ["127.0.0.1", "localhost"]
 

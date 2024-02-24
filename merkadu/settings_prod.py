@@ -3,13 +3,11 @@ from flask import Flask
 from flask_mail import Mail
 import mimetypes
 from decouple import config
+from django.conf import settings
 
 # Inicialização do Flask
 app = Flask(__name__)
 mail= Mail(app)
-
-# Configuração do módulo Django
-DJANGO_SETTINGS_MODULE = config('DJANGO_SETTINGS_MODULE', default='merkadu.settings_prod')
 
 # Lista de hosts permitidos
 ALLOWED_HOSTS = ['merkaduapp.com', 'www.merkaduapp.com', 'merkadu-app-production.up.railway.app']
@@ -21,7 +19,7 @@ mimetypes.add_type("image/webp", ".webp", True)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # Chave secreta (ATENÇÃO: Esta chave deve ser mantida em segredo)
-SECRET_KEY = "odsghodighsoigdsio"
+SECRET_KEY = os.getenv('SECRET_KEY')
 
 # Configuração de Debug
 DEBUG = os.getenv('DEBUG', default=True)

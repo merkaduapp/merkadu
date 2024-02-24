@@ -8,8 +8,6 @@ from decouple import config
 app = Flask(__name__)
 mail= Mail(app)
 
-# Configuração do módulo Django
-DJANGO_SETTINGS_MODULE = config('DJANGO_SETTINGS_MODULE', default='merkadu.settings')
 
 # Lista de hosts permitidos
 ALLOWED_HOSTS = ['merkaduapp.com', 'www.merkaduapp.com', 'merkadu-app-production.up.railway.app']
@@ -21,7 +19,7 @@ mimetypes.add_type("image/webp", ".webp", True)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # Chave secreta (ATENÇÃO: Esta chave deve ser mantida em segredo)
-SECRET_KEY = "odsghodighsoigdsio"
+SECRET_KEY = os.getenv('SECRET_KEY')
 
 # Configuração de Debug
 DEBUG = os.getenv('DEBUG', default=True)
@@ -136,12 +134,6 @@ WSGI_APPLICATION = 'merkadu.wsgi.application'
 LOGIN_URL = 'login' 
 
 # Configuração do banco de dados
-DATABASES = {
-   'default': {
-       # Configurações do banco de dados
-   }
-}
-
 DATABASES = {
    'default': {
        'ENGINE': 'django.db.backends.postgresql_psycopg2',
