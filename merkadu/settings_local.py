@@ -9,10 +9,10 @@ app = Flask(__name__)
 mail= Mail(app)
 
 # Configuração do módulo Django
-DJANGO_SETTINGS_MODULE = config('DJANGO_SETTINGS_MODULE', default='merkadu.settings')
+DJANGO_SETTINGS_MODULE = config('DJANGO_SETTINGS_MODULE', default='merkadu.settings_local')
 
 # Lista de hosts permitidos
-ALLOWED_HOSTS = ['merkaduapp.com', 'www.merkaduapp.com', 'merkadu-app-production.up.railway.app']
+ALLOWED_HOSTS = ["127.0.0.1", "localhost"]
 
 # Adiciona o tipo MIME para imagens WebP
 mimetypes.add_type("image/webp", ".webp", True)
@@ -21,7 +21,7 @@ mimetypes.add_type("image/webp", ".webp", True)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # Chave secreta (ATENÇÃO: Esta chave deve ser mantida em segredo)
-SECRET_KEY = "odsghodighsoigdsio"
+SECRET_KEY = os.getenv('SECRET_KEY')
 
 # Configuração de Debug
 DEBUG = os.getenv('DEBUG', default=True)
@@ -87,22 +87,22 @@ MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
 ]
 
-CORS_ALLOWED_ORIGINS = [
-    'https://merkadu-app-production.up.railway.app',
-]
+# CORS_ALLOWED_ORIGINS = [
+#     'https://merkadu-app-production.up.railway.app',
+# ]
 
-CORS_ALLOW_METHODS = [
-    'POST',  
-]
+# CORS_ALLOW_METHODS = [
+#     'POST',  
+# ]
 
 THUMBNAIL_PROCESSORS = [
     'easy_thumbnails.processors.colorspace',
     'easy_thumbnails.processors.autocrop',
 ]
 
-CSRF_TRUSTED_ORIGINS = [
-    'https://merkadu-app-production.up.railway.app',
-]
+# CSRF_TRUSTED_ORIGINS = [
+#     'https://merkadu-app-production.up.railway.app',
+# ]
 
 AUTHENTICATION_BACKENDS = [
     'django.contrib.auth.backends.ModelBackend',
@@ -137,21 +137,16 @@ LOGIN_URL = 'login'
 
 # Configuração do banco de dados
 DATABASES = {
-   'default': {
-       # Configurações do banco de dados
-   }
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': os.environ["DB_NAME"],
+        'USER': os.environ["DB_USER"],
+        'PASSWORD': os.environ["DB_PASSWORD"],
+        'HOST': os.environ["DB_HOST"],
+        'PORT': os.environ["DB_PORT"],
+    }
 }
 
-DATABASES = {
-   'default': {
-       'ENGINE': 'django.db.backends.postgresql_psycopg2',
-       'NAME': 'railway',
-       'USER': 'postgres',
-       'PASSWORD': '4GB1bfC4f-3a-C1BcEf-2adgGFDeEFgf',
-       'HOST': 'viaduct.proxy.rlwy.net',
-       'PORT': '53870',
-   }
-}
 
 # Configuração de validadores de senha
 AUTH_PASSWORD_VALIDATORS = [
