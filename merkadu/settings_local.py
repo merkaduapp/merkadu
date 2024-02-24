@@ -2,7 +2,10 @@ import os
 from flask import Flask
 from flask_mail import Mail
 import mimetypes
-from decouple import config
+from dotenv import load_dotenv
+
+
+load_dotenv()
 
 # Inicialização do Flask
 app = Flask(__name__)
