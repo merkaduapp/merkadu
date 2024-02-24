@@ -1,7 +1,10 @@
 import os
-from flask import Flask, render_template
+from flask import Flask
 from flask_mail import Mail, Message
+from dotenv import load_dotenv
 
+
+load_dotenv()
 
 
 # Instanciando objeto app
@@ -9,7 +12,7 @@ app = Flask(__name__)
 
 # Configuração dos dados do e-mail
 app.config.update(
-    DEBUG=os.getenv('DEBUG', default=True),
+    MAIL_DEBUG=os.getenv('DEBUG', default=True),
     MAIL_SERVER=os.getenv('MAIL_SERVER'),
     MAIL_PORT=os.getenv('MAIL_PORT'),
     MAIL_USE_TLS=os.getenv('MAIL_USE_TLS'),
