@@ -1,5 +1,5 @@
 import os
-from config import configure_django_settings
+from .config import configure_django_settings
 from django.core.wsgi import get_wsgi_application
 
 # Define o ambiente atual com base em uma variável de ambiente
