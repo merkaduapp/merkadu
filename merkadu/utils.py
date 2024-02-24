@@ -10,9 +10,12 @@ load_dotenv()
 # Instanciando objeto app
 app = Flask(__name__)
 
+def str_to_bool(value):
+    return value.lower() in ('true', '1', 't')
+
 # Configuração dos dados do e-mail
 app.config.update(
-    MAIL_DEBUG=os.getenv('DEBUG', default=True),
+    MAIL_DEBUG=str_to_bool(os.getenv('DEBUG', 'True')),
     MAIL_SERVER=os.getenv('MAIL_SERVER'),
     MAIL_PORT=os.getenv('MAIL_PORT'),
     MAIL_USE_TLS=os.getenv('MAIL_USE_TLS'),
