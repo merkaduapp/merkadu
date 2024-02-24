@@ -2,7 +2,6 @@ import os
 from flask import Flask
 from flask_mail import Mail
 import mimetypes
-from decouple import config
 from dotenv import load_dotenv
 
 
@@ -14,7 +13,7 @@ mail= Mail(app)
 
 
 SECRET_KEY = os.getenv('SECRET_KEY', 'p@1a;sljfk=$adsk;lhPUO*R*P(@HBBGG)g')
-DEBUG = bool( os.os.getenv('DEBUG', True) )
+DEBUG = bool(os.getenv('DEBUG', True) )
 
 # Lista de hosts permitidos
 ALLOWED_HOSTS = ['merkaduapp.com', 'www.merkaduapp.com', 'merkadu-app-production.up.railway.app']
