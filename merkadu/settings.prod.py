@@ -2,8 +2,10 @@ import os
 from flask import Flask
 from flask_mail import Mail
 import mimetypes
-from decouple import config
-from django.conf import settings
+from dotenv import load_dotenv
+
+
+load_dotenv()
 
 # Inicialização do Flask
 app = Flask(__name__)
@@ -137,11 +139,11 @@ LOGIN_URL = 'login'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': os.environ["PGDATABASE"],
-        'USER': os.environ["PGUSER"],
-        'PASSWORD': os.environ["PGPASSWORD"],
-        'HOST': os.environ["PGHOST"],
-        'PORT': os.environ["PGPORT"],
+        'NAME': os.getenv("PGDATABASE"),
+        'USER': os.getenv("PGUSER"),
+        'PASSWORD': os.getenv("PGPASSWORD"),
+        'HOST': os.getenv("PGHOST"),
+        'PORT': os.getenv("PGPORT"),
     }
 }
 

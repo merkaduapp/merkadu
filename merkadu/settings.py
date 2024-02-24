@@ -3,11 +3,18 @@ from flask import Flask
 from flask_mail import Mail
 import mimetypes
 from decouple import config
+from dotenv import load_dotenv
+
+
+load_dotenv()
 
 # Inicialização do Flask
 app = Flask(__name__)
 mail= Mail(app)
 
+
+SECRET_KEY = os.getenv('SECRET_KEY', 'p@1a;sljfk=$adsk;lhPUO*R*P(@HBBGG)g')
+DEBUG = bool( os.os.getenv('DEBUG', True) )
 
 # Lista de hosts permitidos
 ALLOWED_HOSTS = ['merkaduapp.com', 'www.merkaduapp.com', 'merkadu-app-production.up.railway.app']
@@ -19,7 +26,6 @@ mimetypes.add_type("image/webp", ".webp", True)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # Chave secreta (ATENÇÃO: Esta chave deve ser mantida em segredo)
-SECRET_KEY = os.getenv('SECRET_KEY')
 
 # Configuração de Debug
 DEBUG = os.getenv('DEBUG', default=True)

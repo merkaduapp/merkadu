@@ -1,22 +1,7 @@
 import os
-from .config import configure_django_settings
 from django.core.wsgi import get_wsgi_application
 
-# Define o ambiente atual com base em uma variável de ambiente
-# Por exemplo, você pode definir a variável de ambiente 'ENVIRONMENT'
-# para 'local', 'development' ou 'production'.
-configure_django_settings()
+# Substitua 'myproject.settings' pelo caminho correto para seus arquivos de configuração
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', os.environ.get('DJANGO_SETTINGS_MODULE', 'merkadu.settings.prod'))
 
-environment = os.getenv('ENVIRONMENT', 'local')
-
-# Determina qual arquivo de configuração do Django será usado com base no ambiente
-if environment == 'local':
-    os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'merkadu.settings_local')
-elif environment == 'development':
-    os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'merkadu.settings_dev')
-elif environment == 'production':
-    print(">>>>>>>>>>>>>>>Produ")
-    os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'merkadu.settings_prod')
-
-# Obtém a aplicação WSGI do Django
 application = get_wsgi_application()
