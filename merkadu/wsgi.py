@@ -15,6 +15,7 @@ if environment == 'local':
 elif environment == 'development':
     os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'merkadu.settings_dev')
 elif environment == 'production':
+    print(">>>>>>>>>>>>>>>Produ")
     os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'merkadu.settings_prod')
 
 # Obtém a aplicação WSGI do Django
