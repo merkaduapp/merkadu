@@ -9,7 +9,7 @@ app = Flask(__name__)
 mail= Mail(app)
 
 # Configuração do módulo Django
-DJANGO_SETTINGS_MODULE = config('DJANGO_SETTINGS_MODULE', default='merkadu.settings')
+DJANGO_SETTINGS_MODULE = config('DJANGO_SETTINGS_MODULE', default='merkadu.settings_prod')
 
 # Lista de hosts permitidos
 ALLOWED_HOSTS = ['merkaduapp.com', 'www.merkaduapp.com', 'merkadu-app-production.up.railway.app']
@@ -137,20 +137,14 @@ LOGIN_URL = 'login'
 
 # Configuração do banco de dados
 DATABASES = {
-   'default': {
-       # Configurações do banco de dados
-   }
-}
-
-DATABASES = {
-   'default': {
-       'ENGINE': 'django.db.backends.postgresql_psycopg2',
-       'NAME': 'railway',
-       'USER': 'postgres',
-       'PASSWORD': '4GB1bfC4f-3a-C1BcEf-2adgGFDeEFgf',
-       'HOST': 'viaduct.proxy.rlwy.net',
-       'PORT': '53870',
-   }
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': os.environ["PGDATABASE"],
+        'USER': os.environ["PGUSER"],
+        'PASSWORD': os.environ["PGPASSWORD"],
+        'HOST': os.environ["PGHOST"],
+        'PORT': os.environ["PGPORT"],
+    }
 }
 
 # Configuração de validadores de senha
