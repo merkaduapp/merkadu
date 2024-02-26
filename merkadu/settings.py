@@ -92,6 +92,7 @@ MIDDLEWARE = [
 
 CORS_ALLOWED_ORIGINS = [
     'https://merkadu-app-production.up.railway.app',
+    'https://https://merkaduapp.com'
 ]
 
 CORS_ALLOW_METHODS = [
