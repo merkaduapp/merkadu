@@ -340,7 +340,11 @@
                 {% if products %}
                     {% for product in products %}
                     <div class="hover:grow hover:shadow-lg rounded-md overflow-hidden card-produto relative">
-                        <img class="object-cover h-30 w-full" src="{{ product.image.url }}" alt="{{ product.name }}">
+                        {% if product.image %}
+                            <img src="{{ produto.image.url }}" alt="descrição da imagem">
+                        {% else %}
+                            <p>Nenhuma imagem disponível.</p>
+                        {% endif %}
                         <button class="absolute top-2 right-2 text-red-500 hover:text-red-700 focus:outline-none">
                             <i class="far fa-heart"></i>
                         </button>
