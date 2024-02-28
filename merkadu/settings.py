@@ -106,6 +106,7 @@ THUMBNAIL_PROCESSORS = [
 
 CSRF_TRUSTED_ORIGINS = [
     'https://merkadu-app-production.up.railway.app',
+    'https://merkaduapp.com'
 ]
 
 AUTHENTICATION_BACKENDS = [
@@ -139,7 +140,6 @@ WSGI_APPLICATION = 'merkadu.wsgi.application'
 
 LOGIN_URL = 'login' 
 
-# Configuração do banco de dados
 DATABASES = {
    'default': {
        'ENGINE': 'django.db.backends.postgresql_psycopg2',
@@ -150,6 +150,7 @@ DATABASES = {
        'PORT': '53870',
    }
 }
+
 
 # Configuração de validadores de senha
 AUTH_PASSWORD_VALIDATORS = [

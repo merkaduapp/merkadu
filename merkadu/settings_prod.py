@@ -104,6 +104,7 @@ THUMBNAIL_PROCESSORS = [
 
 CSRF_TRUSTED_ORIGINS = [
     'https://merkadu-app-production.up.railway.app',
+    'https://merkaduapp.com'
 ]
 
 AUTHENTICATION_BACKENDS = [
