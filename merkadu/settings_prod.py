@@ -20,6 +20,7 @@ mimetypes.add_type("image/webp", ".webp", True)
 # Diretório base do projeto
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
+
 # Chave secreta (ATENÇÃO: Esta chave deve ser mantida em segredo)
 SECRET_KEY = os.getenv('SECRET_KEY')
 
@@ -80,6 +81,7 @@ MIDDLEWARE = [
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
+    'django.contrib.staticfiles.middleware.StaticFilesMiddleware'
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
@@ -215,3 +217,4 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 STATICFILES_IGNORE_PATTERNS = ['*.js']
+
