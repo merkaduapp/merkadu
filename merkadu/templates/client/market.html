@@ -343,7 +343,7 @@
                     {% for product in products %}
                     <div class="hover:grow hover:shadow-lg rounded-md overflow-hidden card-produto relative">
                         {% if product.image %}
-                            <img src="{{ product.image }}" alt="descrição da imagem">
+                            <img src="{{ product.image.url | static }}" alt="descrição da imagem">
                         {% else %}
                             <p>Nenhuma imagem disponível.</p>
                         {% endif %}

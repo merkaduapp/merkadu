@@ -86,7 +86,7 @@ def custom_login(request):
 
 
 def home(request):
-    return render(request, 'home.html')
+    return render(request, 'startbootstrap-new-age-gh-pages/index.html')
 
 def register(request):
     if request.method == 'POST':
@@ -158,7 +158,7 @@ def home(request):
 
     print("DEBUG - Current Market ID:", current_market_id)
 
-    return render(request, 'home.html', {'user_greeting': user_greeting, 'user': request.user, 'current_market_id': current_market_id})
+    return render(request, 'index.html', {'user_greeting': user_greeting, 'user': request.user, 'current_market_id': current_market_id})
 
 def pricing(request):
     return render(request, 'pricing.html', {})
