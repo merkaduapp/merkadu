@@ -9,14 +9,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style>
-        header {
-            background-color: rgb(255, 255, 255);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 10px 20px;
-        }
-
         header img {
             width: 150px;
             height: auto;
@@ -68,46 +60,107 @@
                 margin-top: 10px;
             }
         }
+        /* Estilos para o menu */
+.menu-bar {
+  background-color: white;
+  padding: 10px;
+  text-align: right;
+  width: 100%;
+}
+
+.menu-items {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.menu-item {
+  display: inline-block;
+  margin-left: 20px;
+}
+
+.menu-item:first-child {
+  margin-left: 0;
+}
+
+.menu-item a {
+  color: rgb(0, 0, 0);
+  text-decoration: none;
+  font-size: 16px;
+}
+
+/* Estilos para o header */
+header {
+  background-color: rgb(250, 0, 0);
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.logo {
+  width: 200px;
+  height: auto;
+}
+
+.title {
+  color: white;
+  font-size: 20px;
+  text-align: center;
+}
+
+@media screen and (max-width: 768px) {
+  .menu-items {
+    text-align: center;
+  }
+
+  .menu-item {
+    display: block;
+    margin: 10px 0;
+  }
+}
     </style>
   </head>  
-  <header div class="flex items-center" style="background-color: rgb(255, 255, 255);">
-    <!-- Seção do Logotipo -->
-    <img src="{% static 'merkadu/merkadu.svg' %}" alt="Logotipo da Empresa" class="logo">
-    <!-- <img src="media/media/merkadu.png" width="180" height="180" style="padding-right: 20px;"> -->
-    <nav style="display: flex; width: 100%; justify-content: flex-end; align-items: center; padding-right: 20px;">
-      <!-- <div style="color: rgb(0, 0, 0); text-decoration: none;">
-        <a href="/" style="color: rgb(0, 0, 0); text-decoration: none;">Encontre um Parceiro</a>
-      </div> -->
-        {% if user.is_authenticated %}   
+  <div class="menu-bar">
+    <nav class="menu-items">
+      {% if user.is_authenticated %}   
         {% if user_greeting and current_market_id %}
-        <div class="login-button" style="background-color: rgb(0, 150, 3); padding: 10px 20px; border-radius: 5px;">
+          <div class="login-button" style="background-color: rgb(0, 150, 3); padding: 10px 20px; border-radius: 5px;">
             <a href="{% url 'merkadu:market' pk=current_market_id %}" style="color: white; text-decoration: none;">Ver minha loja</a>
-        </div>
-        <div class="login-button" style="background-color: rgb(0, 17, 150); padding: 10px 20px; border-radius: 5px;">
-            <a href="/configurations">Configurar loja</a>
-        </div>
+          </div>
+          <div class="login-button" style="background-color: rgb(0, 17, 150); padding: 10px 20px; border-radius: 5px;">
+            <a href="/configurations" style="color: white; text-decoration: none;">Configurar loja</a>
+          </div>
         {% else %}
-            <!-- Trate o caso em que o ID da loja não está definido -->
-            <div class="login-button" style="background-color: rgb(0, 20, 150); padding: 10px 20px; border-radius: 5px;">
-                <a href="/configurations" style="color: white; text-decoration: none;">Configure sua loja!</a>
-            </div>
+          <!-- Trate o caso em que o ID da loja não está definido -->
+          <div class="login-button" style="background-color: rgb(0, 20, 150); padding: 10px 20px; border-radius: 5px;">
+            <a href="/configurations" style="color: white; text-decoration: none;">Configure sua loja!</a>
+          </div>
         {% endif %}
-          <div class="user-greeting">
-          <a>Olá, <b>{{ user_greeting }} !</b></a>
-          </div> 
-          <div class="nav-item">
-            <a href="{% url 'merkadu:logout' %}?next=/">Sair</a>
-          </div>
-        {% else %}
-          <div style="color: rgb(0, 0, 0); text-decoration: none;">
-            <a href="/pricing" style="color: rgb(0, 0, 0); text-decoration: none;">Planos</a>
-          </div>
-          <div class="login-button" style="background-color: rgb(255, 68, 68); padding: 10px 20px; border-radius: 5px;">
+        <div class="user-greeting">
+          <a>Olá, <b>{{ user_greeting }}!</b></a>
+        </div> 
+        <div class="nav-item">
+          <a href="{% url 'merkadu:logout' %}?next=/">Sair</a>
+        </div>
+      {% else %}
+        <div class="menu-item">
+          <a href="/pricing">Preços</a>
+        </div>
+        <div class="login-button" style="background-color: rgb(255, 0, 0); padding: 10px 20px; border-radius: 5px;">
           <a href="/login" style="color: white; text-decoration: none;">Login</a>
-        {% endif %}
-      </div>
+        </div>
+      {% endif %}
     </nav>
-
+  </div>
+  
+  <header>
+    <!-- Seção do Logotipo -->
+    <div>
+      <img src="{% static 'merkadu/images/logo-fundoazul.png' %}" alt="Logotipo da Empresa" class="logo">
+    </div>
+    <div class="title">
+      <h1>Transforme suas Compras em uma Experiência Simples e Conveniente!</h1>
+    </div>
   </header>
     <div
       class="relative pt-16 pb-32 flex content-center items-center justify-center min-h-screen-75"
@@ -128,7 +181,7 @@
           <div class="w-full lg:w-6/12 px-4 ml-auto mr-auto text-center">
             <div class="w-full">
               <h1 class="text-white text-center font-semibold text-5xl">
-                Supermercado e farmácia agora é online!
+                Explore uma nova maneira de abastecer sua despensa. Descubra a conveniência do nosso e-commerce para supermercados e economize tempo
               </h1>
             </div>
           </div>

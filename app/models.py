@@ -128,7 +128,7 @@ class Product(models.Model):
     offer_value = models.FloatField('valor de oferta')
     quantity_in_stock = models.IntegerField('quantidade em estoque')
     category = models.CharField('categoria', max_length=50, choices=CATEGORY_CHOICES)
-    image = models.FileField('image', upload_to='static/merkadu', blank=True, null=True, validators=[validate_webp_extension])
+    image = models.FileField('image', upload_to='static/merkadu/images/products', blank=True, null=True, validators=[validate_webp_extension])
     is_active = models.BooleanField('ativo', default=True)
     created_at = models.DateTimeField('criado em', auto_now_add=True)
     updated_at = models.DateTimeField('atualizado em ', auto_now_add=True)

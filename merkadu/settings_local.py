@@ -49,7 +49,8 @@ INSTALLED_APPS = [
     "sslserver",
     "app",
     'rest_framework',
-    'corsheaders'
+    'corsheaders',
+    'bootstrap4',
 ]
 
 # Backend de autenticação
@@ -138,14 +139,11 @@ LOGIN_URL = 'login'
 # Configuração do banco de dados
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': os.environ["DB_NAME"],
-        'USER': os.environ["DB_USER"],
-        'PASSWORD': os.environ["DB_PASSWORD"],
-        'HOST': os.environ["DB_HOST"],
-        'PORT': os.environ["DB_PORT"],
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
+
 
 
 # Configuração de validadores de senha
@@ -207,6 +205,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # Configurações estáticas e de mídia
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [os.path.join(BASE_DIR, "static")]
+
 STATIC_ROOT =os.path.join(BASE_DIR, 'staticfiles')
 
 MEDIA_URL = '/media/'
